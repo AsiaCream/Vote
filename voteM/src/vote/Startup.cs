@@ -22,8 +22,8 @@ namespace vote
         {
             var appEnv = services.BuildServiceProvider().GetRequiredService<IApplicationEnvironment>();
             services.AddEntityFramework()
-                .AddSqlite()
-                .AddDbContext<VoteContext>(x => x.UseSqlite("Data source=" + appEnv.ApplicationBasePath + "/Database/vote.db"));
+                .AddSqlServer()
+                .AddDbContext<VoteContext>(x => x.UseSqlServer("server=localhost;uid=sa;password=123456;database=vote"));
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<VoteContext>()
                 .AddDefaultTokenProviders();

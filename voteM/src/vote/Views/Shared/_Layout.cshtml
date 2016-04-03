@@ -3,11 +3,111 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>齐齐哈尔市企业信用信息系统后台管理</title>
+    <link href="~/styles/bootstrap.css" type="text/css" rel="stylesheet" />
+    <link href="~/styles/_Layout.css" type="text/css" rel="stylesheet" />
+    <script src="~/scripts/jquery.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
 </head>
-<body>
-    <div>
-        @RenderBody()
+<body class="LayoutPage">
+    <nav class="navbar navbar-fixed-top" role="navigation">
+        <div class="row">
+            <div class="col-md-2 title">
+                <a asp-action="Manage" asp-controller="Home">
+                    <span id="logo">
+                        后台首页
+                    </span>
+                </a>
+            </div>
+            <span style="float:right; position:absolute; top:8px; right:8px; display:inline-block;">
+                <button style="display:none; " type="button" class="btn" id="pull"><i class="glyphicon glyphicon-th-list"></i>  </button>
+            </span>
+        </div>
+        <div class="clr"></div>
+    </nav>
+    <div style="position:relative; top:50px;">
+        <div class="row">
+            <div class="col-md-2" id="pullset">
+                <aside class="left-aside">
+                    <div class="user"><a href="/">Welcome Manager</a></div>
+                    <ul id="main-nav" class="nav-list">
+                        <li>
+                            <a asp-action="Index" asp-controller="Home" target="_blank">
+                                <i class="glyphicon glyphicon-home"></i>
+                                网站首页
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#set" class="collapsed" data-toggle="collapse">
+                                <i class="ico"></i>
+                                管理投稿
+                            </a>
+                            <ul id="set" class="collapse secondmenu">
+                                <li><a asp-controller="Admin" asp-action="DetailsPhotos">图片管理</a></li>
+                                <li><a asp-controller="Admin" asp-action="CreatePhotos">图片添加</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#set1" class="collapsed" data-toggle="collapse">
+                                <i class="glyphicon glyphicon-leaf"></i>
+                                信用报表管理
+                            </a>
+                            <ul id="set1" class="collapse secondmenu">
+                                <li><a asp-action="DetailsYearReportEnterprise" asp-controller="Admin">企业年度信用报表管理</a></li>
+                                <li><a asp-action="DetailsYearReportIndividual" asp-controller="Admin">个体年度信用报表管理</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a asp-action="Login" asp-controller="Account">
+                                <i class="glyphicon glyphicon-off"></i>
+                                退出后台
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="col-md-10" style="background-color:rgb(242,242,242);">
+                @RenderBody()
+            </div>
+        </div>
     </div>
+    <script>
+        $(document).ready(function () {
+
+            $("#main-nav li a").click(function () {
+                $(this).css("background", "#eee");
+            });
+        });
+        var oPull = document.getElementById('pull');
+        var oPullSet = document.getElementById('pullset');
+
+        //判断当前浏览器大小
+        fun();
+        function fun(){
+            if(window.innerWidth <990){
+                oPull.style.display = 'block';
+                oPullSet.style.display = 'none';
+            }
+        };
+
+        window.onresize = function fun(){
+            if (window.innerWidth < 990) {
+                oPull.style.display = 'block';
+            } else {
+                oPull.style.display = 'none';
+                oPullSet.style.display = 'block';
+            }
+        };
+
+        oPull.onclick = function () {
+            if (oPullSet.style.display == 'block') {
+                oPullSet.style.display = 'none';
+
+            } else {
+                oPullSet.style.display = 'block';
+            }
+        };
+    </script>
 </body>
 </html>

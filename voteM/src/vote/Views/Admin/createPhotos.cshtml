@@ -1,0 +1,48 @@
+﻿<form role="form" asp-action="CreatePhotos" asp-controller="Admin" method="post" enctype="multipart/form-data" id="frmPhotos">
+    <div class="form-group">
+        <h2>添加照片</h2>
+        <table class="table">
+            <tr>
+                <th>照片标题</th>
+                <td><input class="form-control" type="text" name="PhotoName" id="title" /></td>
+            </tr>
+            <tr>
+                <th>照片描述</th>
+                <td><textarea class="form-control" rows="3" name="Discription" id="discription"></textarea></td>
+            </tr>
+            <tr>
+                <th>作者</th>
+                <td><input class="form-control" type="text" name="Author" id="priority" /></td>
+            </tr>
+            <tr>
+                <th>选择照片</th>
+                <td><input class="form-control" type="file" name="file" id="file" formenctype="multipart/form-data" /></td>
+            </tr>
+        </table>
+        <p>
+            <input class="btn" type="submit" value="提交" />
+            <a asp-action="DetailsPhotos" asp-controller="Admin">取消</a>
+        </p>
+    </div>
+</form>
+<script type="text/javascript">
+    $("#send").click(function () {
+        $.post("/Admin/CreatePhotos", {
+            "title": $("#title").val(),
+            "discription": $("#discription").val(),
+            "priority": $("#priority").val(),
+            "file": $("#file").val(),
+        }
+             ,
+             function (data) {
+                 if (data == "success") {
+                     alert("上传成功");
+
+                 }
+                 else {
+                     alert("上传失败");
+
+                 }
+             })
+    });
+</script>
