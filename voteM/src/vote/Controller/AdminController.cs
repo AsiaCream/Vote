@@ -15,14 +15,15 @@ namespace vote.Controller
     [Authorize]
     public class AdminController : BaseController
     {
-        #region
+        #region 图片
 
         //详情
-
+        
         [HttpGet]
         public IActionResult DetailsPhotos()
         {
-            return View();
+            var photos = DB.Photos.ToList();
+            return PagedView(photos,10);
         }
         //添加投稿（图片）
         [HttpGet]
@@ -42,7 +43,70 @@ namespace vote.Controller
             DB.Photos.Add(photo);
             photo.DateTime = DateTime.Now;
             DB.SaveChanges();
+            return Content("success");
+        }
+
+        //删除
+        public IActionResult DeletePhotos(int id)
+        {
+            var photo = DB.Photos
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (photo == null)
+            {
+                return Content("error");
+            }
+            else
+            {
+                DB.Photos.Remove(photo);
+                DB.SaveChanges();
+                return Content("success");
+            }
+            
+        }
+        //修改
+        [HttpGet]
+        public IActionResult EditPhotos(int id)
+        {
+            var photo = DB.Photos
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if(photo == null)
+            {
+                return Content("没有此记录");
+            }
+            else
+            {
+                return View(photo);
+            }
+        }
+        [HttpPost]
+        public IActionResult EditPhotos(Photos photo,int id)
+        {
+            var photoEdit = DB.Photos
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if(photoEdit == null)
+            {
+                return Content("没有该记录");
+            }
+            photoEdit.Author = photo.Author;
+            photoEdit.Discription = photo.Discription;
+            photoEdit.PhotoName = photo.PhotoName;
+            photoEdit.DateTime = photo.DateTime;
+            photoEdit.Path = photo.Path;
+            DB.SaveChanges();
             return RedirectToAction("DetailsPhotos", "Admin");
+        }
+
+        //查看详细
+        public IActionResult Photo(int id)
+        {
+            var photo = DB.Photos
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+
+            return View(photo);
         }
         #endregion
     }

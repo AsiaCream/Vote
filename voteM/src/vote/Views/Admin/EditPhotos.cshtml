@@ -1,0 +1,32 @@
+﻿@model Photos
+<form asp-controller="Admin" asp-action="EditPhotos" method="post">
+    <div class="form-group">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <table class="table">
+            <tr>
+                <th>照片标题</th>
+                <td><input type="text" name="PhotoName" value="@Model.PhotoName" /></td>
+            </tr>
+            <tr>
+                <th>作者</th>
+                <td><input class="form-control" type="text" name="Author" value="@Model.Author" /></td>
+            </tr>
+            <tr>
+                <th>照片路径</th>
+                <td><input type="text" name="Path" value="@Model.Path" /></td>
+            </tr>
+            <tr>
+                <th>照片描述</th>
+                <td><textarea class="form-control" rows="3" name="Discription">@Model.Discription</textarea></td>
+            </tr>
+            <tr>
+                <td><input class="form-control" type="hidden" name="Datetime" value="@DateTime.Now" /></td>
+            </tr>
+            
+        </table>
+        <p>
+            <input type="submit" value="修改" />
+            <a asp-action="Manage" asp-controller="Home">取消</a>
+        </p>
+    </div>
+</form>

@@ -28,16 +28,16 @@ namespace vote.Controller
             var result = await signInManager.PasswordSignInAsync(username, password, false, false);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Manage", "Home");
+                //return RedirectToAction("Index", "Home");
             }
             else
             {
-                return RedirectToAction("Manage", "Account");
-
+                //return RedirectToAction("Manage", "Home");
+                return RedirectToAction("Login", "Account");
             }
         }
         #endregion
-
         
     }
 }
