@@ -10,7 +10,7 @@
                         <th>作者</th>
                         <th>优先级</th>
                         <th>录入时间</th>
-                        <th>照片描述</th>
+                        
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -23,13 +23,13 @@
                             <th>@x.Author.AuthorName</th>
                             <th>@x.Priority</th>
                             <th>@x.DateTime</th>
-                            <th>@x.Discription</th>
+                            
                             @if (User.IsSignedIn())
                             {
                                 <td>
                                     <a asp-action="EditPhotos" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
                                     <a href="javascript:remove(@x.Id)">删除</a>
-                                    <a asp-action="Photos" asp-controller="Admin" asp-route-id="@x.Id">查看详细</a>
+                                    <a asp-action="Photo" asp-controller="Admin" asp-route-id="@x.Id">查看详细</a>
                                 </td>
                             }
                         </tr>

@@ -4,7 +4,8 @@
         <tr>
             <th>照片ID</th>
             <th>照片标题</th>
-            <th>作者</th>           
+            <th>作者</th>      
+            <th>优先级</th>     
             <th>录入时间</th>
             <th>照片描述</th>
         </tr>
@@ -12,12 +13,16 @@
     <tbody>
         <tr id="table-tr">
             <th>@Model.Id</th>
-            <th>@Model.PhotoName</th>
-            <th>@Model.Author</th>
+            <th>@Model.Title</th>
+            <th>@Model.Author.AuthorName</th>
+            <th>@Model.Priority</th>
             <th>@Model.DateTime</th>
             <th>@Model.Discription</th>
         </tr>     
     </tbody>
 </table>
 <p></p>
-<img src="~/upload/@Model.Path" alt="@Model.Discription"/>
+<img src="~/upload/@Model.Path" alt="@Model.Title"/>
+<p>
+    <a asp-controller="Admin" asp-action="DetailsPhotos">返回上一级</a>
+</p>

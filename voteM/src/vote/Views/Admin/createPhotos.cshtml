@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">照片描述</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="Discription" id="Discription" />
+                        <textarea class="form-control" name="Discription" id="Discription" ></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <div class="col-lg-9 col-lg-offset-3">
                         <input class="btn btn-success" type="submit" value="提交" />
-                        <a asp-controller="Admin" asp-action="DetailsPhotos">取消</a>
+                        <a asp-controller="Admin" asp-action="DetailsAuthor">取消</a>
                     </div>
                 </div>
             </form>
@@ -95,15 +95,21 @@
 
                 },
                 Discription: {
-                    stringLength: {
-                        min:30,
-                        max:140,
-                        message: '描述内容不能低于15字，不高于140字。请认真描述哟。'
+                    validators:{
+                        stringLength: {
+                            min: 30,
+                            max: 140,
+                            message: '描述内容不能低于30字，不高于140字。请认真描述哟。'
+                        }
+                    
                     }
+                    
                 },
-                file:{
-                    notEmpty: {
-                        message: '请上传文件'
+                file: {
+                    validators: {
+                        notEmpty: {
+                            message: '请上传文件'
+                        }
                     }
                 
                 }

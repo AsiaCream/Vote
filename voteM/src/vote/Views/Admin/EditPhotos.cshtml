@@ -1,32 +1,119 @@
 ﻿@model Photos
-<form asp-controller="Admin" asp-action="EditPhotos" method="post">
-    <div class="form-group">
-        <input type="hidden" name="id" value="@Model.Id" />
-        <table class="table">
-            <tr>
-                <th>照片标题</th>
-                <td><input class="form-control" type="text" name="Title" value="@Model.Title" /></td>
-            </tr>
-            <tr>
-                <th>作者</th>
-                <td><input class="form-control" type="text" name="Author" value="@Model.Author.AuthorName" /></td>
-            </tr>
-            <tr>
-                <th>照片路径</th>
-                <td><input class="form-control" type="text" name="Path" value="@Model.Path" /></td>
-            </tr>
-            <tr>
-                <th>照片描述</th>
-                <td><textarea class="form-control" rows="3" name="Discription">@Model.Discription</textarea></td>
-            </tr>
-            <tr>
-                <td><input class="form-control" type="hidden" name="Datetime" value="@DateTime.Now" /></td>
-            </tr>
-            
-        </table>
-        <p>
-            <input type="submit" class="btn btn-info" value="修改" />
-            <a asp-action="DetailsPhotos" asp-controller="Admin">取消</a>
-        </p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h3>编辑图片信息</h3>
+            </div>
+            <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="EditPhotos" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">照片标题</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Title" id="Title" value="@Model.Title" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">作者</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Author" id="Author" value="@Model.Author.AuthorName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">优先级</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Priority" id="Priority" value="@Model.Priority" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">照片路径</label>
+                    <div class="col-lg-5">
+                        <input type="hidden" class="form-control" name="Path" id="Path" value="@Model.Path" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">照片描述</label>
+                    <div class="col-lg-5">
+                        <textarea class="form-control" name="Discription" id="Discription" value="@Model.Discription"></textarea>
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">存储时间</label>
+                    <div class="col-lg-5">
+                        <input type="datetime" class="form-control" name="Datetime" id="Datetime" value="@DateTime.Now" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-5">
+                        <input type="submit" class="btn btn-info" value="修改" />
+                        <a asp-action="DetailsPhotos" asp-controller="Admin">取消</a>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
     </div>
-</form>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#defaultForm").bootstrapValidator({
+            message: '该值没有被验证',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                Title: {
+                    message: '图片还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '图片不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[0-9a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9_\u4E00-\u9FA5]{0,6}$/,
+                            message: '图片名称长度在1到7位之间,可以包括数字，字母，中文,下划线。不能包括特殊字符。'
+                        }
+                    }
+
+                },
+                Priority: {
+                    message: '优先级还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '优先级不能为空,默认为100.'
+                        },
+                        regexp: {
+                            regexp: /^[0-9]{0,6}$/,
+                            message: '数字1的优先级最大依次减小，优先级只能为数字，并且范围在（0-100000）之间。'
+                        }
+                    }
+
+                },
+                Discription: {
+                    validators: {
+                        stringLength: {
+                            min: 30,
+                            max: 140,
+                            message: '描述内容不能低于30字，不高于140字。请认真描述哟。'
+                        }
+
+                    }
+
+                },
+                file: {
+                    validators: {
+                        notEmpty: {
+                            message: '请上传文件'
+                        }
+                    }
+
+                }
+
+            },
+
+        });
+
+    });
+</script>
