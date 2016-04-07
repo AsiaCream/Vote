@@ -25,7 +25,9 @@
                         }
                         else
                         {
-                            <input type="text" class="form-control" name="Author" id="Author" value="@ViewBag.Person.AuthorName" disabled="disabled" />
+                            <select name="Author" class="form-control">
+                                <option>@ViewBag.Person.AuthorName</option>
+                            </select>
                         }
                     </div>
                 </div>

@@ -39,13 +39,21 @@ namespace vote.Controller
         public IActionResult CreatePhotos(IFormFile file,string Author,Photos photo)
         {
             var auth = DB.Author.Where(x => x.AuthorName == Author).SingleOrDefault();
-            file.SaveAs(".\\wwwroot\\upload\\" + auth.Id + "-" + auth.AuthorName + "\\" + auth.Id + "_" + photo.Title + ".jpg");
-            photo.Path = auth.Id + "-" + auth.AuthorName + "\\" + auth.Id + "_" + photo.Title + ".jpg";
-            photo.DateTime = DateTime.Now;
-            photo.AuthorId = auth.Id;
-            DB.Photos.Add(photo);
-            DB.SaveChanges();
-            return RedirectToAction("DetailsPhotos", "Admin");
+            if (auth == null)
+            {
+                return RedirectToAction("CreatePhotos", "Admin");
+            }
+            else
+            {
+                file.SaveAs(".\\wwwroot\\upload\\" + auth.Id + "-" + auth.AuthorName + "\\" + auth.Id + "_" + photo.Title + ".jpg");
+                photo.Path = auth.Id + "-" + auth.AuthorName + "\\" + auth.Id + "_" + photo.Title + ".jpg";
+                photo.DateTime = DateTime.Now;
+                photo.AuthorId = auth.Id;
+                DB.Photos.Add(photo);
+                DB.SaveChanges();
+                return RedirectToAction("DetailsPhotos", "Admin");
+            }
+            
         }
 
         //删除
@@ -106,10 +114,9 @@ namespace vote.Controller
         //查看详细
         public IActionResult Photo(int id)
         {
-            var photo = DB.Photos
+            var photo = DB.Photos.Include(x=>x.Author)
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-
             return View(photo);
         }
         #endregion
