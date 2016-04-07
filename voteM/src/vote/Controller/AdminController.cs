@@ -7,6 +7,7 @@ using Microsoft.AspNet.Http;
 using vote.Models;
 using System.IO;
 using Microsoft.AspNet.Authorization;
+using Microsoft.Data.Entity;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,7 +23,7 @@ namespace vote.Controller
         [HttpGet]
         public IActionResult DetailsPhotos()
         {
-            var photos = DB.Photos.ToList();
+            var photos = DB.Photos.Include(x=>x.Author).ToList();
             return PagedView(photos,10);
         }
         //添加投稿（图片）
@@ -70,7 +71,7 @@ namespace vote.Controller
         [HttpGet]
         public IActionResult EditPhotos(int id)
         {
-            var photo = DB.Photos
+            var photo = DB.Photos.Include(x=>x.Author)
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             if(photo == null)
@@ -83,16 +84,16 @@ namespace vote.Controller
             }
         }
         [HttpPost]
-        public IActionResult EditPhotos(Photos photo,int id)
+        public IActionResult EditPhotos(Photos photo,string Author,int id)
         {
-            var photoEdit = DB.Photos
+            var photoEdit = DB.Photos.Include(x=>x.Author)
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             if(photoEdit == null)
             {
                 return Content("没有该记录");
             }
-            photoEdit.Author = photo.Author;
+            photoEdit.Author.AuthorName = Author;
             photoEdit.Discription = photo.Discription;
             photoEdit.Title = photo.Title;
             photoEdit.DateTime = photo.DateTime;

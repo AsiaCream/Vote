@@ -5,15 +5,15 @@
         <table class="table">
             <tr>
                 <th>照片标题</th>
-                <td><input type="text" name="PhotoName" value="@Model.PhotoName" /></td>
+                <td><input class="form-control" type="text" name="Title" value="@Model.Title" /></td>
             </tr>
             <tr>
                 <th>作者</th>
-                <td><input class="form-control" type="text" name="Author" value="@Model.Author" /></td>
+                <td><input class="form-control" type="text" name="Author" value="@Model.Author.AuthorName" /></td>
             </tr>
             <tr>
                 <th>照片路径</th>
-                <td><input type="text" name="Path" value="@Model.Path" /></td>
+                <td><input class="form-control" type="text" name="Path" value="@Model.Path" /></td>
             </tr>
             <tr>
                 <th>照片描述</th>
@@ -25,7 +25,7 @@
             
         </table>
         <p>
-            <input type="submit" value="修改" />
+            <input type="submit" class="btn btn-info" value="修改" />
             <a asp-action="DetailsPhotos" asp-controller="Admin">取消</a>
         </p>
     </div>
