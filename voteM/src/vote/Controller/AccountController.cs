@@ -28,12 +28,10 @@ namespace vote.Controller
             var result = await signInManager.PasswordSignInAsync(username, password, false, false);
             if (result.Succeeded)
             {
-                return RedirectToAction("Manage", "Home");
-                //return RedirectToAction("Index", "Home");
+                return Content("success");
             }
             else
             {
-                //return RedirectToAction("Manage", "Home");
                 return RedirectToAction("Login", "Account");
             }
         }

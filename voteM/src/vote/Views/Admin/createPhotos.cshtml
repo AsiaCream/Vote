@@ -1,31 +1,53 @@
-﻿<form role="form" asp-action="CreatePhotos" asp-controller="Admin" method="post" enctype="multipart/form-data" id="frmPhotos">
-    <div class="form-group">
-        <h2>添加照片</h2>
-        <table class="table">
-            <tr>
-                <th>照片标题</th>
-                <td><input class="form-control" type="text" name="PhotoName" id="PhotoName" /></td>
-            </tr>
-            <tr>
-                <th>照片描述</th>
-                <td><textarea class="form-control" rows="3" name="Discription" id="Discription"></textarea></td>
-            </tr>
-            <tr>
-                <th>作者</th>
-                <td><input class="form-control" type="text" name="Author" id="Author" /></td>
-            </tr>
-            <tr>
-                <th>选择照片</th>
-                <td><input class="form-control" type="file" name="file" id="file" formenctype="multipart/form-data" /></td>
-            </tr>
-        </table>
-        <p>
-            <input class="btn btn-primary" id="send" value="提交" />
-            <a asp-action="DetailsPhotos" asp-controller="Admin">取消</a>
-        </p>
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h3>添加图片</h3>
+            </div>
+            <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="CreatePhotos" method="post">
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">照片标题</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="PhotoName" id="PhotoName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">作者</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Author" id="Author" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">照片标题</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Priority" id="Priority" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">照片描述</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Discription" id="Discription" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">选择照片</label>
+                    <div class="col-lg-5">
+                        <input type="file" class="form-control" name="file" id="file" formenctype="multipart/form-data" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <input class="btn inverse" type="submit" value="提交" />
+                        <a asp-controller="Admin" asp-action="DetailsPhotos">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</form>
-<script type="text/javascript">
+</div>
+
+<!--<script type="text/javascript">
     $("#send").click(function () {
         $.post("/Admin/CreatePhotos", {
             "PhotoName": $("#PhotoName").val(),
@@ -42,4 +64,4 @@
                  }
              })
     });
-</script>
+</script>-->

@@ -10,12 +10,17 @@ namespace vote.Models
     public class VoteContext : IdentityDbContext<User>
     {
         public DbSet<Photos> Photos { get; set; }
+        public DbSet<Author> Author { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<Photos>(e =>
+            {
+                e.HasIndex(x => x.Id);
+            });
+            builder.Entity<Author>(e =>
             {
                 e.HasIndex(x => x.Id);
             });

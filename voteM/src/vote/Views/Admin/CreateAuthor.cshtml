@@ -1,0 +1,69 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h3>作者添加</h3>
+            </div>
+            <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="CreateAuthor" method="post">
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">作者名</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="AuthorName" id="AuthorName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">Email</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Email" id="Email" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <input class="btn inverse" type="submit" value="提交" />
+                        <a asp-controller="Admin" asp-action="DetailsAuthor">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#defaultForm").bootstrapValidator({
+            message: '这个值没有被验证',
+            feedbackIcons: {
+                valid:'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                AuthorName: {
+                    message: '作者名还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message:'作者名不能为空'
+                        },
+                        regexp:{
+                            regexp: /^[a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9_\u4E00-\u9FA5]{1,4}$/,
+                            message:'作者名可以包括数字，字母，中文,下划线。不能包括特殊字符。并且长度在2到5位之间。'
+                        }
+                    }
+
+                },
+                Email: {
+                    message: 'Email还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message:'Email不能为空'
+                        },
+                        regexp:{
+                            regexp: /^(\w)+(\.\w+)*\u0040(\w)+((\.\w{2,3}){1,3})$/,
+                            message:'格式如：zhangfei@163.com'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>

@@ -13,5 +13,6 @@ namespace vote.Models
         public string Author { get; set; }
         public string Discription { get; set; }
         public string Path { get; set; }
+        public string Priority { get; set; }
     }
 }
