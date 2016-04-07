@@ -166,6 +166,7 @@ namespace vote.Controller
             }
             editAuthor.AuthorName = author.AuthorName;
             editAuthor.Email = author.Email;
+            editAuthor.PhoneNumber = author.PhoneNumber;
             DB.SaveChanges();
             return RedirectToAction("DetailsAuthor", "Admin");
         }
