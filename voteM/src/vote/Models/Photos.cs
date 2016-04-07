@@ -10,7 +10,7 @@ namespace vote.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; } 
         public string Discription { get; set; }
         public string Path { get; set; }
         public string Priority { get; set; }

@@ -38,7 +38,7 @@ namespace vote.Controller
         public IActionResult CreatePhotos(IFormFile file,string Author,Photos photo)
         {
             var auth = DB.Author.Where(x => x.AuthorName == Author).SingleOrDefault();
-            file.SaveAs(".\\wwwroot\\upload\\" + auth.Id +"-"+auth.AuthorName+ "\\" + DateTime.Now.ToString("yyMMddhhmmss") + ".jpg");
+            file.SaveAs(".\\wwwroot\\upload\\" + auth.Id + "-" + auth.AuthorName + "\\" + auth.Id + "_" + photo.Title + ".jpg");
             photo.Path = auth.Id + "-" + auth.AuthorName + "\\" + DateTime.Now.ToString("yyMMddhhmmss") + ".jpg";
             photo.DateTime = DateTime.Now;
             photo.AuthorId = auth.Id;

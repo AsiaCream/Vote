@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">照片标题</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="PhotoName" id="PhotoName" />
+                        <input type="text" class="form-control" name="Title" id="Title" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -30,9 +30,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-3 control-lable">照片标题</label>
+                    <label class="col-lg-3 control-lable">优先级</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="Priority" id="Priority" />
+                        <input type="text" class="form-control" name="Priority" id="Priority" value="100" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -58,22 +58,59 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#defaultForm").bootstrapValidator({
+            message: '该值没有被验证',
+            feedbackIcons: {
+                valid:'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                Title: {
+                    message: '图片还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '图片不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[0-9a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9_\u4E00-\u9FA5]{0,6}$/,
+                            message: '图片名称长度在1到7位之间,可以包括数字，字母，中文,下划线。不能包括特殊字符。'
+                        }
+                    }
 
-<!--<script type="text/javascript">
-    $("#send").click(function () {
-        $.post("/Admin/CreatePhotos", {
-            "PhotoName": $("#PhotoName").val(),
-            "Discription": $("#Discription").val(),
-            "Author": $("#Author").val(),
-            "file": $("#file").val(),
-        },function (data) {
-                 if (data == "success") {
-                     alert("上传成功");
-                 }
-                 else {
-                     alert("上传失败");
+                },
+                Priority: {
+                    message: '优先级还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '优先级不能为空,默认为100.'
+                        },
+                        regexp: {
+                            regexp: /^[0-9]{0,6}$/,
+                            message: '数字1的优先级最大依次减小，优先级只能为数字，并且范围在（0-100000）之间。'
+                        }
+                    }
 
-                 }
-             })
+                },
+                Discription: {
+                    stringLength: {
+                        min:30,
+                        max:140,
+                        message: '描述内容不能低于15字，不高于140字。请认真描述哟。'
+                    }
+                },
+                file:{
+                    notEmpty: {
+                        message: '请上传文件'
+                    }
+                
+                }
+
+            },
+            
+        });
+
     });
-</script>-->
+</script>
