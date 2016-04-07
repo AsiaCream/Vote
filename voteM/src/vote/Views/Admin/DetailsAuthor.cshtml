@@ -27,7 +27,7 @@
                             {
                                 <td>
                                     <a asp-action="EditAuthor" asp-controller="Admin" asp-route-id="@x.Id">修改</a>
-                                    <a asp-controller="Admin" asp-action="CreatePhotos">添加图片作品</a>
+                                    <a asp-controller="Admin" asp-action="CreatePhotos" asp-route-id="@x.Id">添加图片作品</a>
                                     <a href="javascript:remove(@x.Id)">删除</a>
                                 </td>
                             }

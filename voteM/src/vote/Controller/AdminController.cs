@@ -27,20 +27,23 @@ namespace vote.Controller
         }
         //添加投稿（图片）
         [HttpGet]
-        public IActionResult CreatePhotos()
+        public IActionResult CreatePhotos(int id)
         {
+            var user = DB.Author.Where(x => x.Id == id).SingleOrDefault();
+            ViewBag.Person = user;
+            ViewBag.Authors = DB.Author.OrderByDescending(x => x.Id).ToList();
             return View();
         }
         [HttpPost]
-        public IActionResult CreatePhotos(IFormFile file, Photos photo)
+        public IActionResult CreatePhotos(IFormFile file,string Author,Photos photo)
         {
-            
-            file.SaveAs(".\\wwwroot\\upload\\" + DateTime.Now.ToString("yyMMddhhmmss") + ".jpg");
-            photo.Path = DateTime.Now.ToString("yyMMddhhmmss") + ".jpg";
-            DB.Photos.Add(photo);
+            var auth = DB.Author.Where(x => x.AuthorName == Author).SingleOrDefault();
+            file.SaveAs(".\\wwwroot\\upload\\" + auth.Id +"-"+auth.AuthorName+ "\\" + DateTime.Now.ToString("yyMMddhhmmss") + ".jpg");
+            photo.Path = auth.Id + "-" + auth.AuthorName + "\\" + DateTime.Now.ToString("yyMMddhhmmss") + ".jpg";
             photo.DateTime = DateTime.Now;
+            photo.AuthorId = auth.Id;
+            DB.Photos.Add(photo);
             DB.SaveChanges();
-            //return Content("success");
             return RedirectToAction("DetailsPhotos", "Admin");
         }
 
@@ -56,6 +59,7 @@ namespace vote.Controller
             }
             else
             {
+
                 DB.Photos.Remove(photo);
                 DB.SaveChanges();
                 return Content("success");
@@ -90,7 +94,7 @@ namespace vote.Controller
             }
             photoEdit.Author = photo.Author;
             photoEdit.Discription = photo.Discription;
-            photoEdit.PhotoName = photo.PhotoName;
+            photoEdit.Title = photo.Title;
             photoEdit.DateTime = photo.DateTime;
             photoEdit.Path = photo.Path;
             photoEdit.Priority = photo.Priority;
@@ -113,7 +117,8 @@ namespace vote.Controller
         [HttpGet]
         public IActionResult DetailsAuthor()
         {
-            return View(DB.Author);
+            var authors = DB.Author.OrderByDescending(x => x.Id).ToList();
+            return PagedView(authors,10);
         }
         [HttpGet]
         public IActionResult CreateAuthor()
