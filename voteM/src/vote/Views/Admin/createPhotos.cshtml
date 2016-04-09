@@ -4,7 +4,7 @@
             <div class="page-header">
                 <h3>添加图片</h3>
             </div>
-            <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="CreatePhotos" asp-route-id="@ViewBag.Author.Id" enctype="multipart/form-data" method="post">
+            <form id="defaultForm" class="form-horizontal" asp-action="CreatePhotos" asp-controller="Admin" asp-route-id="@ViewBag.Author.Id" enctype="multipart/form-data" method="post">
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">照片标题</label>
                     <div class="col-lg-5">

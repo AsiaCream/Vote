@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <!--查到到作者列表-->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div>
                 <h3>查找到的是作者有 @ViewBag.AuthorsCount 个</h3>
             </div>
@@ -13,8 +13,6 @@
                     <tr>
                         <th>序号</th>
                         <th>作者</th>
-                        <th>联系电话</th>
-                        <th>Email</th>
                         <th>备注</th>
                     </tr>
                 </thead>
@@ -24,18 +22,14 @@
                         <tr>
                             <th>@x.Id</th>
                             <th>@x.AuthorName</th>
-                            <th>@x.PhoneNumber</th>
-                            <th>@x.Email</th>
                             <th>@x.Note</th>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
-    </div>
-    <!--查找到作品列表-->
-    <div class="row">
-        <div class="col-md-12">
+        <!--查到的作品-->
+        <div class="col-md-6">
             <div>
                 <h3>查找到的是作品有 @ViewBag.PhotosCount 个</h3>
             </div>

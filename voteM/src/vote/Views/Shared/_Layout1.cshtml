@@ -45,12 +45,12 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-left" asp-action="Searching" asp-controller="Admin" role="search">
+                    <div class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" name="key" placeholder="搜索作品/作者/题目">
                         </div>
-                        <button type="submit" class="btn btn-success">搜索</button>
-                    </form>
+                        <a asp-action="Searching" asp-controller="Admin" class="btn btn-success">搜索</a>
+                    </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">返回市民学习网</a></li>
                     </ul>

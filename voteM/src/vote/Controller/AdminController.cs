@@ -14,10 +14,10 @@ namespace vote.Controller
     [Authorize]
     public class AdminController : BaseController
     {
-        
+
 
         #region 搜索
-        [HttpPost]
+        [HttpGet]
         public IActionResult Searching(string key)
         {
             //和传过来的key比较查询有没有这个key标题的照片
@@ -79,17 +79,17 @@ namespace vote.Controller
         [HttpPost]
         public IActionResult CreatePhotos(int id,IFormFile file,Photos photo)
         {
-            var auth = DB.Author.Where(x => x.Id == id).SingleOrDefault();
-            if (auth == null)
+            var author = DB.Author.Where(x => x.Id == id).SingleOrDefault();
+            if (author == null)
             {
                 return RedirectToAction("CreatePhotos", "Admin");
             }
             else
             {
-                file.SaveAs(".\\wwwroot\\upload\\" + auth.Id + "-" + auth.AuthorName + "\\" + auth.Id + "_" + photo.Title + ".jpg");
-                photo.Path = auth.Id + "-" + auth.AuthorName + "\\" + auth.Id + "_" + photo.Title + ".jpg";
+                file.SaveAs(".\\wwwroot\\upload\\" + author.Id + "-" + author.AuthorName + "\\" + author.Id + "_" + photo.Title + ".jpg");
+                photo.Path = author.Id + "-" + author.AuthorName + "\\" + author.Id + "_" + photo.Title + ".jpg";
                 photo.DateTime = DateTime.Now;
-                photo.AuthorId = auth.Id;
+                photo.AuthorId = author.Id;
                 DB.Photos.Add(photo);
                 DB.SaveChanges();
                 return RedirectToAction("DetailsPhotos", "Admin");
