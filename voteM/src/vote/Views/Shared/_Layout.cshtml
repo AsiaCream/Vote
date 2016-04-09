@@ -22,6 +22,15 @@
                     </span>
                 </a>
             </div>
+            <div>
+                <form id="defaultForm" class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="Id" id="Id" placeholder="搜索作品/作者/题目">
+                    </div>
+                    <button type="submit" class="btn btn-success">搜索</button>
+                </form>
+                
+            </div>
             <span style="float:right; position:absolute; top:8px; right:8px; display:inline-block;">
                 <button style="display:none; " type="button" class="btn" id="pull"><i class="glyphicon glyphicon-th-list"></i>  </button>
             </span>
@@ -32,7 +41,11 @@
         <div class="row">
             <div class="col-md-2" id="pullset">
                 <aside class="left-aside">
-                    <div class="user"><a href="/">Welcome Manager</a></div>
+                    <div class="user">
+                        
+                        
+
+                    </div>
                     <ul id="main-nav" class="nav-list">
                         <li>
                             <a asp-action="Index" asp-controller="Home" target="_blank">
@@ -77,6 +90,31 @@
     </div>
     <script>
         $(document).ready(function () {
+            $("#defaultForm").bootstrapValidator({
+                message: '这个值没有被验证',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    Id: {
+                        message: '作者序号没有验证',
+                        validators: {
+                            notEmpty: {
+                                message: '作者序号不能为空'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]{0,6}$/,
+                                message: '作者序号只能是数字'
+                            }
+                        }
+
+                    },
+                    
+                }
+            });
+
 
             $("#main-nav li a").click(function () {
                 $(this).css("background", "#eee");

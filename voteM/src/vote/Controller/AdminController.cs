@@ -16,10 +16,41 @@ namespace vote.Controller
     [Authorize]
     public class AdminController : BaseController
     {
+        
+
+        #region 搜索
+        [HttpPost]
+        public IActionResult Searching(int id)
+        {
+            var auth = DB.Author
+                .Where(x => x.Id == id)
+                .SingleOrDefaultAsync();
+            if(auth == null)
+            {
+                return Content("查无此人");
+            }
+            else
+            {
+                return RedirectToAction("SearchResult", "Admin");
+            }
+
+        }
+
+        public IActionResult SearchResult(int id)
+        {
+            var search = DB.Author
+                .Where(x => x.Id == id)
+                .SingleOrDefaultAsync();
+            return View(search);
+        }
+        
+
+        #endregion
+
         #region 图片
 
         //详情
-        
+
         [HttpGet]
         public IActionResult DetailsPhotos()
         {

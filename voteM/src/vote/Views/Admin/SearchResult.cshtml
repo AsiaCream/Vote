@@ -1,0 +1,35 @@
+﻿@model Author
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div>
+                <h3>查找到的是</h3>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>作者</th>
+                        <th>联系电话</th>
+                        <th>Email</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>@Model.Id</th>
+                        <th>@Model.AuthorName</th>
+                        <th>@Model.PhoneNumber</th>
+                        <th>@Model.Email</th>
+                        <th>@Model.Note</th>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+<p>
+    <a asp-controller="Admin" asp-action="Manage">返回后台首页</a>
+</p>

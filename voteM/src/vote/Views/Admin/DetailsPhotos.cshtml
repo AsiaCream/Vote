@@ -17,7 +17,7 @@
                 <tbody>
                     @foreach (var x in Model)
                     {
-                        <tr id="table-tr">
+                        <tr id="table-tr-@x.Id">
                             <th>@x.Id</th>
                             <th>@x.Title</th>
                             <th>@x.Author.AuthorName</th>
@@ -54,7 +54,7 @@
                     var params = { "id": id };
                     $.post(url, params, function (data) {
                         if (data == "success") {
-                            $("#table-tr").remove();
+                            $("#table-tr-"+id).remove();
                             alert("删除成功");
 
                         }
