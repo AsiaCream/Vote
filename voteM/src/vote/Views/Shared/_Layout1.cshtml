@@ -45,12 +45,12 @@
                             </ul>
                         </li>
                     </ul>
-                    <div class="navbar-form navbar-left" role="search">
+                    <form asp-action="Searching" asp-controller="Admin" id="frmSearch" method="post" class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" name="key" placeholder="搜索作品/作者/题目">
                         </div>
-                        <a asp-action="Searching" asp-controller="Admin" class="btn btn-success">搜索</a>
-                    </div>
+                        <input type="submit" class="btn btn-success" value="搜索"/>
+                    </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">返回市民学习网</a></li>
                     </ul>
@@ -66,3 +66,12 @@
     </footer>
 </body>
 </html>
+<script>
+        $(document).ready(function () {
+            $(".sort tr:nth-child(odd)").mouseover(function () {
+                $("tr:odd").css({ display: "none" });
+                $(this).next().css({ display: "block" });
+
+            });
+        });
+</script>

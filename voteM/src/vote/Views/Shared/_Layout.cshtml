@@ -23,12 +23,12 @@
                 </a>
             </div>
             <div>
-                <div class="navbar-form navbar-left" role="search">
+                <form asp-action="Searching" asp-controller="Admin" class="navbar-form navbar-left" role="search">
                     <div class="form-group">
                         <input type="text" class="form-control" name="key" placeholder="搜索作品/作者/题目">
                     </div>
-                    <a asp-action="Searching" asp-controller="Admin" class="btn btn-success">搜索</a>
-                </div>
+                    <input type="submit" class="btn btn-success" value="搜索">
+                </form>
                 
             </div>
             <span style="float:right; position:absolute; top:8px; right:8px; display:inline-block;">

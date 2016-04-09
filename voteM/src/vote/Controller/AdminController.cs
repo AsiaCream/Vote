@@ -17,36 +17,10 @@ namespace vote.Controller
 
 
         #region 搜索
-        [HttpGet]
+        [ValidateAntiForgeryToken]
         public IActionResult Searching(string key)
         {
-            //和传过来的key比较查询有没有这个key标题的照片
-            var photos = DB.Photos
-                .Include(x=>x.Author)
-                .Where(x => x.Title.Contains(key))
-                .ToList();
-            var photosCount = DB.Photos
-                .Include(x=>x.Author)
-                .Where(x => x.Title.Contains(key))
-                .Count();//照片数量
-            var authors = DB.Author
-                .Where(x => x.AuthorName.Contains(key))
-                .ToList();
-            var authorsCount = DB.Author
-                .Where(x => x.AuthorName
-                .Contains(key))
-                .Count();
-            var photo = DB.Photos
-                .Include(x=>x.Author)
-                .Where(x => x.Id.ToString() == key).SingleOrDefault();
-            var author = DB.Author.Where(x => x.Id.ToString() == key).SingleOrDefault();
-            
-                ViewBag.Photos = photos;
-                ViewBag.PhotosCount = photosCount;
-                ViewBag.Authors = authors;
-                ViewBag.AuthorsCount = authorsCount;
-                ViewBag.Author = author;
-                ViewBag.Photo = photo;
+
                 return View();
         }
         [HttpGet]
@@ -77,7 +51,7 @@ namespace vote.Controller
             return View();
         }
         [HttpPost]
-        public IActionResult CreatePhotos(int id,IFormFile file,Photos photo)
+        public IActionResult CreatePhotos(int id,Photos photo, IFormFile file)
         {
             var author = DB.Author.Where(x => x.Id == id).SingleOrDefault();
             if (author == null)

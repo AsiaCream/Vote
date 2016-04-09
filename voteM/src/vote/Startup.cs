@@ -16,17 +16,21 @@ namespace vote
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             var appEnv = services.BuildServiceProvider().GetRequiredService<IApplicationEnvironment>();
+            //services.AddEntityFramework()
+              //  .AddSqlServer()
+                //.AddDbContext<VoteContext>(x => x.UseSqlServer("server=localhost;uid=sa;password=123456;database=vote"));
+            
             services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<VoteContext>(x => x.UseSqlServer("server=localhost;uid=sa;password=123456;database=vote"));
+                .AddSqlite()
+                .AddDbContext<VoteContext>(x=>x.UseSqlite("Data source=" + appEnv.ApplicationBasePath + "/Datebase/vote.db"));
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<VoteContext>()
                 .AddDefaultTokenProviders();
+
             services.AddMvc();
             services.AddSmartUser<User, string>();
         }
