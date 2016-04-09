@@ -4,7 +4,7 @@
             <div class="page-header">
                 <h3>添加图片</h3>
             </div>
-            <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="CreatePhotos" enctype="multipart/form-data" method="post">
+            <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="CreatePhotos" asp-route-id="@ViewBag.Author.Id" enctype="multipart/form-data" method="post">
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">照片标题</label>
                     <div class="col-lg-5">
@@ -14,33 +14,19 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">作者</label>
                     <div class="col-lg-5">
-                        @if (ViewBag.Person == null)
-                        {
-                            <select name="Author" class="form-control">
-                                @foreach(Author x in ViewBag.Authors)
-                                {
-                                    <option>@x.AuthorName</option>
-                                }
-                            </select>
-                        }
-                        else
-                        {
-                            <select name="Author" class="form-control">
-                                <option>@ViewBag.Person.AuthorName</option>
-                            </select>
-                        }
+                       <input class="form-control" value="@ViewBag.Author.AuthorName" disabled="disabled"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">优先级</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="Priority" id="Priority" value="100" />
+                        <input type="text" class="form-control" name="Priority" id="Priority" value="10" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">照片描述</label>
                     <div class="col-lg-5">
-                        <textarea class="form-control" name="Discription" id="Discription" ></textarea>
+                        <textarea class="form-control" name="Describe" id="Describe" ></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -90,13 +76,13 @@
                             message: '优先级不能为空,默认为100.'
                         },
                         regexp: {
-                            regexp: /^[0-9]{0,6}$/,
-                            message: '数字1的优先级最大依次减小，优先级只能为数字，并且范围在（0-100000）之间。'
+                            regexp: /^[0-9]{0,2}$/,
+                            message: '数字1的优先级最大依次减小，优先级只能为数字，并且范围在（0-100）之间。'
                         }
                     }
 
                 },
-                Discription: {
+                Describe: {
                     validators:{
                         stringLength: {
                             min: 30,

@@ -4,8 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Authorization;
-
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.Data.Entity;
 
 namespace vote.Controller
 {
@@ -15,7 +14,11 @@ namespace vote.Controller
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var ret = DB.Photos
+                .Include(x => x.Author)
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return PagedView(ret,16);
         }
 
         [Authorize]
@@ -24,5 +27,11 @@ namespace vote.Controller
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult Error()
+        {
+            return View();
+        }
+        
     }
 }

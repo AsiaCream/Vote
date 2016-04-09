@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>齐齐哈尔市企业信用信息系统后台管理</title>
+    <title>后台管理</title>
     <link rel="stylesheet" href="~/styles/bootstrap.css" />
     <link rel="stylesheet" href="~/styles/bootstrapValidator.min.css" />
     <link rel="stylesheet" href="~/styles/bootstrap-datetimepicker.min.css" />
@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div>
-                <form id="defaultForm" class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left" asp-action="Searching" asp-controller="Admin" role="search" >
                     <div class="form-group">
                         <input type="text" class="form-control" name="Id" id="Id" placeholder="搜索作品/作者/题目">
                     </div>
@@ -60,7 +60,6 @@
                             </a>
                             <ul id="set" class="collapse secondmenu">
                                 <li><a asp-controller="Admin" asp-action="DetailsPhotos">图片管理</a></li>
-                                <li><a asp-controller="Admin" asp-action="CreatePhotos">图片添加</a></li>
                             </ul>
                         </li>
                         <li>

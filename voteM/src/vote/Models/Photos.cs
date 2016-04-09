@@ -11,12 +11,12 @@ namespace vote.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public DateTime DateTime { get; set; } 
-        public string Discription { get; set; }
+        public string Describe{ get; set; }
         public string Path { get; set; }
-        public string Priority { get; set; }
+        public int Priority { get; set; }
 
         [ForeignKey("Author")]
         public int AuthorId { get; set; }
-        public Author Author { get; set; }
+        public virtual Author Author { get; set; }
     }
 }

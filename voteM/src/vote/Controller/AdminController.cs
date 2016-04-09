@@ -9,8 +9,6 @@ using System.IO;
 using Microsoft.AspNet.Authorization;
 using Microsoft.Data.Entity;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace vote.Controller
 {
     [Authorize]
@@ -20,28 +18,41 @@ namespace vote.Controller
 
         #region 搜索
         [HttpPost]
-        public IActionResult Searching(int id)
+        public IActionResult Searching(string key)
         {
-            var auth = DB.Author
-                .Where(x => x.Id == id)
-                .SingleOrDefaultAsync();
-            if(auth == null)
-            {
-                return Content("查无此人");
-            }
-            else
-            {
-                return RedirectToAction("SearchResult", "Admin");
-            }
-
+            //和传过来的key比较查询有没有这个key标题的照片
+            var photos = DB.Photos
+                .Include(x=>x.Author)
+                .Where(x => x.Title.Contains(key))
+                .ToList();
+            var photosCount = DB.Photos
+                .Include(x=>x.Author)
+                .Where(x => x.Title.Contains(key))
+                .Count();//照片数量
+            var authors = DB.Author
+                .Where(x => x.AuthorName.Contains(key))
+                .ToList();
+            var authorsCount = DB.Author
+                .Where(x => x.AuthorName
+                .Contains(key))
+                .Count();
+            var photo = DB.Photos
+                .Include(x=>x.Author)
+                .Where(x => x.Id.ToString() == key).SingleOrDefault();
+            var author = DB.Author.Where(x => x.Id.ToString() == key).SingleOrDefault();
+            
+                ViewBag.Photos = photos;
+                ViewBag.PhotosCount = photosCount;
+                ViewBag.Authors = authors;
+                ViewBag.AuthorsCount = authorsCount;
+                ViewBag.Author = author;
+                ViewBag.Photo = photo;
+                return View();
         }
-
-        public IActionResult SearchResult(int id)
+        [HttpGet]
+        public IActionResult SearchResult()
         {
-            var search = DB.Author
-                .Where(x => x.Id == id)
-                .SingleOrDefaultAsync();
-            return View(search);
+           return View();
         }
         
 
@@ -61,15 +72,14 @@ namespace vote.Controller
         [HttpGet]
         public IActionResult CreatePhotos(int id)
         {
-            var user = DB.Author.Where(x => x.Id == id).SingleOrDefault();
-            ViewBag.Person = user;
-            ViewBag.Authors = DB.Author.OrderByDescending(x => x.Id).ToList();
+            var Author = DB.Author.Where(x => x.Id == id).SingleOrDefault();
+            ViewBag.Author = Author;
             return View();
         }
         [HttpPost]
-        public IActionResult CreatePhotos(IFormFile file,string Author,Photos photo)
+        public IActionResult CreatePhotos(int id,IFormFile file,Photos photo)
         {
-            var auth = DB.Author.Where(x => x.AuthorName == Author).SingleOrDefault();
+            var auth = DB.Author.Where(x => x.Id == id).SingleOrDefault();
             if (auth == null)
             {
                 return RedirectToAction("CreatePhotos", "Admin");
@@ -133,7 +143,7 @@ namespace vote.Controller
                 return Content("没有该记录");
             }
             photoEdit.Author.AuthorName = Author;
-            photoEdit.Discription = photo.Discription;
+            photoEdit.Describe = photo.Describe;
             photoEdit.Title = photo.Title;
             photoEdit.DateTime = photo.DateTime;
             photoEdit.Path = photo.Path;
@@ -173,7 +183,6 @@ namespace vote.Controller
             if (!Directory.Exists(".\\wwwroot\\upload"))
             {
                 Directory.CreateDirectory(".\\wwwroot\\upload");
-
             }
             if (!Directory.Exists(".\\wwwroot\\upload\\" + Author.Id + "-" + Author.AuthorName))
             {

@@ -13,9 +13,18 @@ namespace vote.Controller
         #region
         //图片显示页面
         [HttpGet]
-        public IActionResult show()
+        public IActionResult Show(int id)
         {
-            return View();
+            var photo = DB.Photos.Where(x => x.Id == id).SingleOrDefault();
+            if (photo == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            else
+            {
+                return View(photo);
+            }
+            
         }
         #endregion
     }

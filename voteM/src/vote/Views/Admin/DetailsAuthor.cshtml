@@ -48,7 +48,6 @@
         function remove(id) {
             var jug = confirm("确认删除？");
             if (jug == true) {
-                $(function () {
                     var url = "/Admin/DeleteAuthor";
                     var params = { "id": id };
                     $.post(url, params, function (data) {
@@ -62,7 +61,7 @@
                         }
 
                     });
-                });
+
             }
         }
     </script>

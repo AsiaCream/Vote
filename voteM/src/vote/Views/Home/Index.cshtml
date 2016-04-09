@@ -99,9 +99,9 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-left" asp-action="Searching" asp-controller="Admin" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="搜索作品/作者/题目">
+                            <input type="text" class="form-control" name="key" placeholder="搜索作品/作者/题目">
                         </div>
                         <button type="submit" class="btn btn-success">搜索</button>
                     </form>
@@ -117,144 +117,24 @@
             <div class="col-md-2 col-xs-3">
                 TOP10
                 <table class="table table-hover table-condensed sort">
-                    <tr>
-                        <th>1</th>
-                        <th>Ice</th>
-                    </tr>
-                    <tr style="display:block;">
-                        <th>
-                            <div>
-                                <img src="~/images/3.jpeg" width="100" height="100" />
-                                <p style="text-align:center;">《<em>故都的秋</em>》</p>
-                                <p style="text-align:center;"><em>19876352</em>票</p>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <th>Ice</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div>
-                                <img src="~/images/6.jpeg" width="100" height="100" />
-                                <p style="text-align:center;">《<em>故都的秋</em>》</p>
-                                <p style="text-align:center;"><em>19876352</em>票</p>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <th>Ice</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div>
-                                <img src="~/images/6.jpeg" width="100" height="100" />
-                                <p style="text-align:center;">《<em>故都的秋</em>》</p>
-                                <p style="text-align:center;"><em>19876352</em>票</p>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>4</th>
-                        <th>Ice</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div>
-                                <img src="~/images/6.jpeg" width="100" height="100" />
-                                <p style="text-align:center;">《<em>故都的秋</em>》</p>
-                                <p style="text-align:center;"><em>19876352</em>票</p>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>5</th>
-                        <th>Ice</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div>
-                                <img src="~/images/7.jpeg" width="100" height="100" />
-                                <p style="text-align:center;">《<em>故都的秋</em>》</p>
-                                <p style="text-align:center;"><em>19876352</em>票</p>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>6</th>
-                        <th>Ice</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div>
-                                <img src="~/images/2.jpeg" width="100" height="100" />
-                                <p style="text-align:center;">《<em>故都的秋</em>》</p>
-                                <p style="text-align:center;"><em>19876352</em>票</p>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>7</th>
-                        <th>Ice</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div>
-                                <img src="~/images/4.jpeg" width="100" height="100" />
-                                <p style="text-align:center;">《<em>故都的秋</em>》</p>
-                                <p style="text-align:center;"><em>19876352</em>票</p>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>8</th>
-                        <th>Ice</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div>
-                                <img src="~/images/3.jpeg" width="100" height="100" />
-                                <p style="text-align:center;">《<em>故都的秋</em>》</p>
-                                <p style="text-align:center;"><em>19876352</em>票</p>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>9</th>
-                        <th>Ice</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div>
-                                <img src="~/images/8.jpg" width="100" height="100" />
-                                <p style="text-align:center;">《<em>故都的秋</em>》</p>
-                                <p style="text-align:center;"><em>19876352</em>票</p>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>10</th>
-                        <th>Ice</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <div>
-                                <img src="~/images/1.jpeg" width="100" height="100" />
-                                <p style="text-align:center;">《<em>故都的秋</em>》</p>
-                                <p style="text-align:center;"><em>19876352</em>票</p>
-                            </div>
-                        </th>
-                    </tr>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <th>@x.Id</th>
+                            <th>@x.Author.AuthorName</th>
+                        </tr>
+                        <tr style="display:block;">
+                            <th>
+                                <div>
+                                    <img src="~/upload/@x.Path" width="100" height="100" />
+                                    <p style="text-align:center;">《<em>@x.Title</em>》</p>
+                                    <p style="text-align:center;"><em>65535</em>票</p>
+                                </div>
+                            </th>
+                        </tr>
 
+                    }
                 </table>
-
-                <ul class="pagination">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
-
             </div>
             <div class="col-md-10 col-xs-9">
                 <div class="container-fluid main">
@@ -262,7 +142,7 @@
                     {
                         <div class="col-md-3 col-xs-3">
                             <div class="thumbnail">
-                                <a asp-controller="Page" asp-action="show"><img src="~/upload/@x.Path" alt="@x.Title"></a>
+                                <a asp-controller="Page" asp-action="show" asp-route-id="@x.Id"><img src="~/upload/@x.Path" alt="@x.Title"></a>
                                 <div class="caption voteBox">
                                     <h5><strong>@x.Id</strong>号</h5>
                                     <h5><strong>@x.Author.AuthorName</strong>作</h5>
@@ -276,233 +156,9 @@
                         </div>
 
                     }
-                    
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="~/images/6.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>45</strong>号</h5>
-                                <h5><strong>丑角MC梦</strong>作</h5>
-                                <h5>《<strong>C#开发</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">884</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="~/images/4.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>654</strong>号</h5>
-                                <h5><strong>石头子er</strong>作</h5>
-                                <h5>《<strong>C#设计与开发</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">897</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="~/images/3.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>212</strong>号</h5>
-                                <h5><strong>AMD</strong>作</h5>
-                                <h5>《<strong>剑豪中单技巧</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">6666</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="~/images/5.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>112</strong>号</h5>
-                                <h5><strong>AMD</strong>作</h5>
-                                <h5>《<strong>KOF98格斗大全</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">1234</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="~/images/7.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>123</strong>号</h5>
-                                <h5><strong>无敌</strong>作</h5>
-                                <h5>《<strong>JS开发</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">221</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="~/images/5.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>1545</strong>号</h5>
-                                <h5><strong>OOB</strong>作</h5>
-                                <h5>《<strong>永恒之塔</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">9987</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="~/images/1.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>332</strong>号</h5>
-                                <h5><strong>Cream</strong>作</h5>
-                                <h5>《<strong>海上钢琴师</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">887</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="./images/2.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>365</strong>号</h5>
-                                <h5><strong>AMD</strong>作</h5>
-                                <h5>《<strong>AMD教你打网球</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">758</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="./images/6.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>111</strong>号</h5>
-                                <h5><strong>MC丑角梦</strong>作</h5>
-                                <h5>《<strong>OOB教你打网球</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">1211</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="./images/4.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>665</strong>号</h5>
-                                <h5><strong>石头</strong>作</h5>
-                                <h5>《<strong>石头SOLO大全</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">1234</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="./images/3.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>225</strong>号</h5>
-                                <h5><strong>OBO</strong>作</h5>
-                                <h5>《<strong>如何做锅包肉</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">1234</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="./images/1.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>123</strong>号</h5>
-                                <h5><strong>OOB</strong>作</h5>
-                                <h5>《<strong>如何开黑店</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">1234</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="./images/7.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>787</strong>号</h5>
-                                <h5><strong>OOB</strong>作</h5>
-                                <h5>《<strong>清鑫教你学JAVA</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">1234</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="./images/5.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>143</strong>号</h5>
-                                <h5><strong>李恒</strong>作</h5>
-                                <h5>《<strong>我和小班的过去</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">1234</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-3">
-                        <div class="thumbnail">
-                            <a href="#"><img src="./images/1.jpeg" alt="..."></a>
-                            <div class="caption voteBox">
-                                <h5><strong>157</strong>号</h5>
-                                <h5><strong>八把刀</strong>作</h5>
-                                <h5>《<strong>你追过的女孩</strong>》</h5>
-                                <div class="vote">
-                                    <a href="/">投票</a>
-                                    <p class="voteCount">1234</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="container-fluid">
-                        <ul class="pagination">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">...</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">6</a></li>
-                            <li><a href="#">7</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
-                    </div>
-
+                </div>
+                <div class="pull-left">
+                    @Html.MakePager("pager-item", "", "pager")
                 </div>
             </div>
         </div>

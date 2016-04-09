@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Photos
+@{
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 <style>
@@ -16,9 +17,9 @@
     <div class="col-lg-9">
         <div class="col-lg-12">
             <div class="text-center">
-                <h3>风中的大鸭子</h3>
+                <h3>@Model.Title</h3>
                 <p>
-                    <span>作者:</span><strong class="text-info">宽宽的小钱包</strong>
+                    <span>作者:</span><a href="#"><strong class="text-info">@Model.Author.AuthorName</strong></a>
                     <span>支持:</span><strong class="text-danger">123322</strong>
                 </p>
                 <hr />
@@ -27,7 +28,7 @@
                 <ul class="thumbnails">
                     <li class="span2">
                         <a data-toggle="lightbox" href="#demoLightbox" class="thumbnail">
-                            <img src="~/images/6.jpeg" class="img-responsive" alt="可视化">
+                            <img src="~/upload/@Model.Path" class="img-responsive" alt="可视化">
                         </a>
                     </li>
                 </ul>
@@ -43,7 +44,7 @@
         <div class="col-lg-12">
             <div class="col-lg-10 col-lg-offset-1">
                 <h3 class="text-center">作品描述</h3>
-                <pre style="white-space: pre-wrap;word-wrap: break-word; font-size:15px;">    这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。
+                <pre style="white-space: pre-wrap;word-wrap: break-word; font-size:15px;">@Model.Describe
                 </pre>
                 
             </div>
