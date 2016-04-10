@@ -41,7 +41,7 @@ namespace vote.Controller
             ViewBag.Authors = Authors;
             ViewBag.AuthorsCount = AuthorsCount;
             ViewBag.Photos = Photos;
-            ViewBag.PhotosCount = Photos;
+            ViewBag.PhotosCount = PhotosCount;
 
             return View();
         }
