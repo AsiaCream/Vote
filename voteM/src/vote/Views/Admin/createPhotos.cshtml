@@ -1,10 +1,12 @@
 ﻿<div class="container-fluid">
     <div class="row">
+        <!--添加图片页面-->
         <div class="col-lg-8 col-lg-offset-2">
             <div class="page-header">
                 <h3>添加图片</h3>
             </div>
-            <form id="defaultForm" class="form-horizontal" asp-action="CreatePhotos" asp-controller="Admin" asp-route-id="@ViewBag.Author.Id" enctype="multipart/form-data" method="post">
+            <form id="defaultForm" class="form-horizontal" asp-action="CreatePhotos" asp-controller="Admin" enctype="multipart/form-data" method="post">
+                <input type="hidden" name="AuthorId" value="@ViewBag.Author.Id" />
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">照片标题</label>
                     <div class="col-lg-5">
@@ -14,7 +16,7 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">作者</label>
                     <div class="col-lg-5">
-                       <input class="form-control" value="@ViewBag.Author.AuthorName"/>
+                        <input class="form-control" value="@ViewBag.Author.AuthorName" disabled="disabled" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -26,7 +28,7 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">照片描述</label>
                     <div class="col-lg-5">
-                        <textarea class="form-control" name="Describe" id="Describe" ></textarea>
+                        <textarea class="form-control" name="Describe" id="Describe"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -35,7 +37,6 @@
                         <input type="file" class="form-control" name="file" id="file" formenctype="multipart/form-data" />
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-lg-9 col-lg-offset-3">
                         <input class="btn btn-success" type="submit" value="提交" />
@@ -89,9 +90,9 @@
                             max: 140,
                             message: '描述内容不能低于30字，不高于140字。请认真描述哟。'
                         }
-                    
+
                     }
-                    
+
                 },
                 file: {
                     validators: {
@@ -99,11 +100,11 @@
                             message: '请上传文件'
                         }
                     }
-                
+
                 }
 
             },
-            
+
         });
 
     });

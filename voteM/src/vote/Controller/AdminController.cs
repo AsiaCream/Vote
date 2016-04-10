@@ -20,15 +20,37 @@ namespace vote.Controller
         [ValidateAntiForgeryToken]
         public IActionResult Searching(string key)
         {
+            //找作者
+            var Authors = DB.Author
+                .Where(x => x.Id.ToString() == key || x.AuthorName.Contains(key))
+                .ToList();
+            //相关作者数量
+            var AuthorsCount = DB.Author
+                .Where(x => x.Id.ToString() == key || x.AuthorName.Contains(key)).Count();
+            //找图片
+            var Photos = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Id.ToString() == key || x.Title.Contains(key))
+                .ToList();
+            //相关图片数量
+            var PhotosCount = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Id.ToString() == key || x.Title.Contains(key))
+                .Count();
 
-                return View();
+            ViewBag.Authors = Authors;
+            ViewBag.AuthorsCount = AuthorsCount;
+            ViewBag.Photos = Photos;
+            ViewBag.PhotosCount = Photos;
+
+            return View();
         }
         [HttpGet]
         public IActionResult SearchResult()
         {
-           return View();
+            return View();
         }
-        
+
 
         #endregion
 
@@ -39,8 +61,8 @@ namespace vote.Controller
         [HttpGet]
         public IActionResult DetailsPhotos()
         {
-            var photos = DB.Photos.Include(x=>x.Author).ToList();
-            return PagedView(photos,10);
+            var photos = DB.Photos.Include(x => x.Author).ToList();
+            return PagedView(photos, 10);
         }
         //添加投稿（图片）
         [HttpGet]
@@ -51,9 +73,14 @@ namespace vote.Controller
             return View();
         }
         [HttpPost]
-        public IActionResult CreatePhotos(int id,Photos photo, IFormFile file)
+        public IActionResult CreatePhotos(int AuthorId, string Title, int Priority, string Describe, IFormFile file)
         {
-            var author = DB.Author.Where(x => x.Id == id).SingleOrDefault();
+            var author = DB.Author.Where(x => x.Id == AuthorId).SingleOrDefault();
+            Photos photo = new Photos();
+            photo.AuthorId = AuthorId;
+            photo.Title = Title;
+            photo.Describe = Describe;
+            photo.Priority = Priority;
             if (author == null)
             {
                 return RedirectToAction("CreatePhotos", "Admin");
@@ -63,12 +90,12 @@ namespace vote.Controller
                 file.SaveAs(".\\wwwroot\\upload\\" + author.Id + "-" + author.AuthorName + "\\" + author.Id + "_" + photo.Title + ".jpg");
                 photo.Path = author.Id + "-" + author.AuthorName + "\\" + author.Id + "_" + photo.Title + ".jpg";
                 photo.DateTime = DateTime.Now;
-                photo.AuthorId = author.Id;
+           
                 DB.Photos.Add(photo);
                 DB.SaveChanges();
                 return RedirectToAction("DetailsPhotos", "Admin");
             }
-            
+
         }
 
         //删除
@@ -88,16 +115,16 @@ namespace vote.Controller
                 DB.SaveChanges();
                 return Content("success");
             }
-            
+
         }
         //修改
         [HttpGet]
         public IActionResult EditPhotos(int id)
         {
-            var photo = DB.Photos.Include(x=>x.Author)
+            var photo = DB.Photos.Include(x => x.Author)
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-            if(photo == null)
+            if (photo == null)
             {
                 return Content("没有此记录");
             }
@@ -107,12 +134,12 @@ namespace vote.Controller
             }
         }
         [HttpPost]
-        public IActionResult EditPhotos(Photos photo,string Author,int id)
+        public IActionResult EditPhotos(Photos photo, string Author, int id)
         {
-            var photoEdit = DB.Photos.Include(x=>x.Author)
+            var photoEdit = DB.Photos.Include(x => x.Author)
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-            if(photoEdit == null)
+            if (photoEdit == null)
             {
                 return Content("没有该记录");
             }
@@ -129,7 +156,7 @@ namespace vote.Controller
         //查看详细
         public IActionResult Photo(int id)
         {
-            var photo = DB.Photos.Include(x=>x.Author)
+            var photo = DB.Photos.Include(x => x.Author)
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
             return View(photo);
@@ -141,7 +168,7 @@ namespace vote.Controller
         public IActionResult DetailsAuthor()
         {
             var authors = DB.Author.OrderByDescending(x => x.Id).ToList();
-            return PagedView(authors,10);
+            return PagedView(authors, 10);
         }
         [HttpGet]
         public IActionResult CreateAuthor()
@@ -153,7 +180,7 @@ namespace vote.Controller
         {
             DB.Author.Add(Author);
             DB.SaveChanges();
-            
+
             if (!Directory.Exists(".\\wwwroot\\upload"))
             {
                 Directory.CreateDirectory(".\\wwwroot\\upload");
@@ -164,14 +191,14 @@ namespace vote.Controller
             }
             return RedirectToAction("DetailsAuthor", "Admin");
         }
-        
+
         [HttpGet]
         public IActionResult EditAuthor(int id)
         {
             var editAuthor = DB.Author
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-            if(editAuthor == null)
+            if (editAuthor == null)
             {
                 return Content("没有该记录");
             }
@@ -179,15 +206,15 @@ namespace vote.Controller
             {
                 return View(editAuthor);
             }
-            
+
         }
         [HttpPost]
-        public IActionResult EditAuthor(Author author ,int id )
+        public IActionResult EditAuthor(Author author, int id)
         {
             var editAuthor = DB.Author
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
-            if(editAuthor == null)
+            if (editAuthor == null)
             {
                 return Content("null");
             }
@@ -209,7 +236,7 @@ namespace vote.Controller
             }
             else
             {
-                if(Directory.Exists(".\\wwwroot\\upload\\" + author.Id + "-" + author.AuthorName))
+                if (Directory.Exists(".\\wwwroot\\upload\\" + author.Id + "-" + author.AuthorName))
                 {
                     Directory.Delete(".\\wwwroot\\upload\\" + author.Id + "-" + author.AuthorName);
                 }

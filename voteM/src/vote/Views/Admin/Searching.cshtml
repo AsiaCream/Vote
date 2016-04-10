@@ -5,7 +5,7 @@
     <!--查到到作者列表-->
     <div class="row">
         <div class="col-md-6">
-            <h3>查找到相关的作者有  个</h3>
+            <h3>查找到相关的作者有 @ViewBag.AuthorsCount 个</h3>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -14,9 +14,40 @@
                         <th>备注</th>
                     </tr>
                 </thead>
-                
+                @foreach(Author x in ViewBag.Authors)
+                {
+                    <tbody>
+                        <tr>
+                            <td>@x.Id</td>
+                            <td>@x.AuthorName</td>
+                            <td>@x.Note</td>
+                        </tr>
+                    </tbody>
+                }
             </table>
             <!--根据查找的结果-->
+        </div>
+        <div class="col-md-6 col-xs-6">
+            <div class="container-fluid main">
+                @foreach (Photos x in ViewBag.Photos)
+                {
+                    <div class="col-md-3 col-xs-3">
+                        <div class="thumbnail">
+                            <a asp-controller="Page" asp-action="show" asp-route-id="@x.Id"><img src="~/upload/@x.Path" alt="@x.Title"></a>
+                            <div class="caption voteBox">
+                                <h5><strong>@x.Id</strong>号</h5>
+                                <h5><strong>@x.Author.AuthorName</strong>作</h5>
+                                <h5>《<strong>@x.Title</strong>》</h5>
+                                <div class="vote">
+                                    <a href="/">投票</a>
+                                    <p class="voteCount">1243</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
         </div>
 
     </div>
