@@ -43,10 +43,9 @@ namespace vote.Controller
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Vote(int id)
+        public IActionResult Voted(int id)
         {
-            var computername = Environment.MachineName;
+            //var computername = Environment.MachineName;
             var photo = DB.Photos
                 .Where(x => x.Id == id)
                 .SingleOrDefault();
@@ -56,18 +55,27 @@ namespace vote.Controller
             }
             else
             {
+                photo.VoteNumber = photo.VoteNumber + 1;
+                DB.SaveChanges();
+                return Content("success");
+            }
+            /*else
+            {
                 //判断电脑有没有投过票
                 var ipaddress = DB.IPAddress
                     .Where(x => x.IP == computername)
                     .SingleOrDefault();
-                //如果之前没有投过票进行投票
+                //如果之前没有投过票直接进行投票
                 if (ipaddress == null)
                 {
                     photo.VoteNumber++;
                     var address = new ComputerIP { IP = computername, First = DateTime.Now };
+                    DB.Photos.Add(photo);
+                    DB.IPAddress.Add(address);
+                    DB.SaveChanges();
                     return Content("success");
                 }
-                //如果投票，再判断一次
+                //如果已经投过票，再判断一次
                 else
                 {
                     //时间在差值外可以进行投票
@@ -76,6 +84,7 @@ namespace vote.Controller
                     if (Second - First > 1)
                     {
                         photo.VoteNumber++;
+                        DB.SaveChanges();
                         return Content("success");
                     }
                     //时间在差值外不能投票
@@ -84,7 +93,7 @@ namespace vote.Controller
                         return Content("failure");
                     }
                 }
-            }
+            }*/
 
         }
         
