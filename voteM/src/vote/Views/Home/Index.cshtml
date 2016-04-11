@@ -148,7 +148,7 @@
                                     <h5><strong>@x.Author.AuthorName</strong>作</h5>
                                     <h5>《<strong>@x.Title</strong>》</h5>
                                     <div class="vote">
-                                        <a href="/">投票</a>
+                                        <a href="javascript:vote(@x.Id)">投票</a>
                                         <p class="voteCount">@x.VoteNumber</p>
                                     </div>
                                 </div>
@@ -157,9 +157,7 @@
 
                     }
                 </div>
-                <div class="pull-left">
                     @Html.MakePager("pager-item", "", "pager")
-                </div>
             </div>
         </div>
     </div>
@@ -178,6 +176,22 @@
                 $("#frmSearch").submit();
             });
 
+            function vote(id) {
+                var jug = confirm("确认投这一票吗？");
+                if (jug == true) {
+                    var url = "/Home/Vote";
+                    var params = { "id": id };
+                    $.post(url, params, function (data) {
+                        if (data == "success") {
+                            alert("投票成功");
+                            window.location.href = "/Home/Index";
+                        }
+                        else {
+                            alert("投票失败");
+                        }
+                    });
+                }
+            }
         });
     </script>
 </body>

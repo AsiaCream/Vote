@@ -23,6 +23,7 @@ namespace vote.Models
         public int Priority { get; set; }
         public int VoteNumber { get; set; }
         public Category Category { get; set; }
+
         [ForeignKey("Author")]
         public int AuthorId { get; set; }
         public virtual Author Author { get; set; }
