@@ -8,9 +8,29 @@
             <form id="defaultForm" class="form-horizontal" asp-action="CreatePhotos" asp-controller="Admin" enctype="multipart/form-data" method="post">
                 <input type="hidden" name="AuthorId" value="@ViewBag.Author.Id" />
                 <div class="form-group">
-                    <label class="col-lg-3 control-lable">照片标题</label>
+                    <label class="col-lg-3 control-lable">图片标题</label>
                     <div class="col-lg-5">
                         <input type="text" class="form-control" name="Title" id="Title" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">图片类别</label>
+                    <div class="col-lg-5">
+                        <div class="radio">
+                            <lable>
+                                <input type="radio" value="书法" name="Category" />书法
+                            </lable>
+                        </div>
+                        <div class="radio">
+                            <lable>
+                                <input type="radio" value="素描" name="Category" />素描
+                            </lable>
+                        </div>
+                        <div class="radio">
+                            <lable>
+                                <input type="radio" value="摄影" name="Category" />摄影
+                            </lable>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -26,13 +46,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-3 control-lable">照片描述</label>
+                    <label class="col-lg-3 control-lable">图片描述</label>
                     <div class="col-lg-5">
                         <textarea class="form-control" name="Describe" id="Describe"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-3 control-lable">选择照片</label>
+                    <label class="col-lg-3 control-lable">选择图片</label>
                     <div class="col-lg-5">
                         <input type="file" class="form-control" name="file" id="file" formenctype="multipart/form-data" />
                     </div>
@@ -69,6 +89,13 @@
                         }
                     }
 
+                },
+                Category: {
+                    validators: {
+                        notEmpty: {
+                            message: '图片类别不能为空'
+                        }
+                    }
                 },
                 Priority: {
                     message: '优先级还没有验证',

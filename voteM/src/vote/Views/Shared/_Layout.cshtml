@@ -41,11 +41,6 @@
         <div class="row">
             <div class="col-md-2" id="pullset">
                 <aside class="left-aside">
-                    <div class="user">
-                        
-                        
-
-                    </div>
                     <ul id="main-nav" class="nav-list">
                         <li>
                             <a asp-action="Index" asp-controller="Home" target="_blank">
@@ -59,7 +54,10 @@
                                 管理投稿
                             </a>
                             <ul id="set" class="collapse secondmenu">
-                                <li><a asp-controller="Admin" asp-action="DetailsPhotos">图片管理</a></li>
+                                <li><a asp-controller="Admin" asp-action="DetailsPhotos">投稿管理</a></li>
+                                <li><a asp-controller="Admin" asp-action="DetailsHandwriting">书法类</a></li>
+                                <li><a asp-controller="Admin" asp-action="DetailsPhotograph">摄影类</a></li>
+                                <li><a asp-controller="Admin" asp-action="DetailsSketch">素描类</a></li>
                             </ul>
                         </li>
                         <li>
@@ -72,7 +70,16 @@
                                 <li><a asp-action="DetailsAuthor" asp-controller="Admin">作者管理</a></li>
                             </ul>
                         </li>
-                        
+                        <li>
+                            <a href="#set2" class="collapsed" data-toggle="collapse">
+                                <i class="glyphicon glyphicon-leaf"></i>
+                                活动管理
+                            </a>
+                            <ul id="set2" class="collapse secondmenu">
+                                <li><a asp-action="CreateActivity" asp-controller="Admin">活动添加</a></li>
+                                <li><a asp-action="DetailsActivity" asp-controller="Admin">活动管理</a></li>
+                            </ul>
+                        </li>
                         <li>
                             <a asp-action="Login" asp-controller="Account">
                                 <i class="glyphicon glyphicon-off"></i>
@@ -89,32 +96,6 @@
     </div>
     <script>
         $(document).ready(function () {
-            $("#defaultForm").bootstrapValidator({
-                message: '这个值没有被验证',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    Id: {
-                        message: '作者序号没有验证',
-                        validators: {
-                            notEmpty: {
-                                message: '作者序号不能为空'
-                            },
-                            regexp: {
-                                regexp: /^[0-9]{0,6}$/,
-                                message: '作者序号只能是数字'
-                            }
-                        }
-
-                    },
-                    
-                }
-            });
-
-
             $("#main-nav li a").click(function () {
                 $(this).css("background", "#eee");
             });

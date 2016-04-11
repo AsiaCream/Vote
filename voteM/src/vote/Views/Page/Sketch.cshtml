@@ -4,7 +4,7 @@
 }
 <html>
 <head>
-    <title>市民投票</title>
+    <title>素描——市民投票</title>
     <link rel="stylesheet" href="~/styles/bootstrap.css">
     <link rel="stylesheet" href="~/styles/vote.css" />
     <script src="~/scripts/jquery.min.js"></script>
@@ -72,7 +72,7 @@
                 <header class="row" id="header">
                     <div class="col-md-4">
                         <div class="title">
-                            <h1>投票主题名</h1>
+                            <h1>素描类投票区</h1>
                         </div>
                     </div>
                 </header>
@@ -87,9 +87,9 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a asp-controller="Page" asp-action="Handwriting">书法 <span class="sr-only">(current)</span></a></li>
-                        <li><a asp-controller="Page" asp-action="Sketch">素描</a></li>
-                        <li><a asp-controller="Page" asp-action="Handwriting">摄影</a></li>
+                        <li><a asp-controller="Page" asp-action="Handwriting">书法 <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a asp-controller="Page" asp-action="Sketch">素描</a></li>
+                        <li><a asp-controller="Page" asp-action="Photograph">摄影</a></li>
                         <li class="dropdown">
                             <a asp-controller="Page" asp-active="Active" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">其它活动 <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -115,7 +115,7 @@
     <div class="container">
         <div class="col-md-12">
             <div class="col-md-2 col-xs-3">
-                TOP10
+                书法TOP10
                 <table class="table table-hover table-condensed sort">
                     @foreach (var x in Model)
                     {
@@ -149,7 +149,7 @@
                                     <h5>《<strong>@x.Title</strong>》</h5>
                                     <div class="vote">
                                         <a href="/">投票</a>
-                                        <p class="voteCount">@x.VoteNumber</p>
+                                        <p class="voteCount">1243</p>
                                     </div>
                                 </div>
                             </div>

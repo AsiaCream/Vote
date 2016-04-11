@@ -1,0 +1,38 @@
+﻿@model Activity
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <h3>活动管理</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>活动ID</th>
+                        <td>@Model.Id</td>
+
+                    </tr>
+                    <tr>
+                        <th>活动标题</th>
+                        <td>@Model.ActivityTitle</td>
+                    </tr>
+                    <tr>
+                        <th>发起人</th>
+                        <td>@Model.Originator</td>
+                        
+                    </tr>
+                    <tr>
+                        <th>发起时间</th>
+                        <td>@Model.DateTime</td>
+                    </tr>
+                    <tr>
+                        <th>活动内容</th>
+                        <td>@Model.Content</td>
+                    </tr>
+                </thead>
+                
+            </table>
+        </div>
+    </div>
+</div>
+<p>
+    <a asp-controller="Admin" asp-action="DetailsPhotos">返回上一级</a>
+</p>

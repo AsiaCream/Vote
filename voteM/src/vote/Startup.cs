@@ -19,13 +19,13 @@ namespace vote
         public void ConfigureServices(IServiceCollection services)
         {
             var appEnv = services.BuildServiceProvider().GetRequiredService<IApplicationEnvironment>();
-            //services.AddEntityFramework()
-              //  .AddSqlServer()
-                //.AddDbContext<VoteContext>(x => x.UseSqlServer("server=localhost;uid=sa;password=123456;database=vote"));
-            
             services.AddEntityFramework()
-                .AddSqlite()
-                .AddDbContext<VoteContext>(x=>x.UseSqlite("Data source=" + appEnv.ApplicationBasePath + "/Datebase/vote.db"));
+                .AddSqlServer()
+                .AddDbContext<VoteContext>(x => x.UseSqlServer("server=localhost;uid=sa;password=123456;database=vote"));
+
+            //services.addentityframework()
+            //    .addsqlite()
+            //    .adddbcontext<votecontext>(x=>x.usesqlite("data source=" + appenv.applicationbasepath + "/datebase/vote.db"));
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<VoteContext>()

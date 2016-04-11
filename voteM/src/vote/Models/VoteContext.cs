@@ -11,6 +11,7 @@ namespace vote.Models
     {
         public DbSet<Photos> Photos { get; set; }
         public DbSet<Author> Author { get; set; }
+        public DbSet<Activity> Activity { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -21,6 +22,10 @@ namespace vote.Models
                 e.HasIndex(x => x.Id);
             });
             builder.Entity<Author>(e =>
+            {
+                e.HasIndex(x => x.Id);
+            });
+            builder.Entity<Activity>(e =>
             {
                 e.HasIndex(x => x.Id);
             });

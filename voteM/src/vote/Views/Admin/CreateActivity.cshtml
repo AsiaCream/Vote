@@ -1,0 +1,88 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h3>活动添加</h3>
+            </div>
+            <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="CreateActivity" method="post">
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">活动标题</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="ActivityTitle" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">发起人</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Originator" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">发起时间</label>
+                    <div class="col-lg-5">
+                        <input type="datetime" class="form-control" name="DateTime" value="@DateTime.Now" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">活动内容</label>
+                    <div class="col-lg-5">
+                        <textarea class="form-control" name="Content" value="Content"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <input class="btn btn-primary" type="submit" value="提交" />
+                        <a asp-controller="Admin" asp-action="DetailsActivity">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#defaultForm").bootstrapValidator({
+            message: '这个值没有被验证',
+            feedbackIcons: {
+                valid:'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                ActivityTitle: {
+                    message: '活动标题还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '活动标题不能为空'
+                        }
+                    }
+                },
+                Originator: {
+                    message: '发起人还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '发起人不能为空'
+                        }
+                    }
+                },
+                DateTime: {
+                    message: '发起时间还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '发起时间不能为空'
+                        }
+                    }
+                },
+                Content: {
+                    message: '活动内容还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message:'Email不能为空'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>

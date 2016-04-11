@@ -14,7 +14,99 @@ namespace vote.Controller
     [Authorize]
     public class AdminController : BaseController
     {
+        #region 活动
 
+        public IActionResult DetailsActivity()
+        {
+            var Activity = DB.Activity.ToList();
+            return PagedView(Activity,10);
+        }
+
+        [HttpGet]
+        public IActionResult CreateActivity()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateActivity(Activity activity)
+        {
+            DB.Activity.Add(activity);
+            DB.SaveChanges();
+            return RedirectToAction("DetailsActivity", "Admin");
+        }
+
+        [HttpGet]
+        public IActionResult EditActivity(int id)
+        {
+            var activity = DB.Activity
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if(activity == null)
+            {
+                return Content("不存在该记录！");
+            }
+            else
+            {
+                return View(activity);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult EditActivity(Activity activity,int id)
+        {
+            var active = DB.Activity
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if(active == null)
+            {
+                return Content("该记录不存在");
+            }
+            else
+            {
+                active.ActivityTitle = activity.ActivityTitle;
+                active.Originator = activity.Originator;
+                active.DateTime = activity.DateTime;
+                active.Content = activity.Content;
+                DB.SaveChanges();
+                return RedirectToAction("DetailsActivity", "Admin");
+            }
+      
+        }
+
+        public IActionResult DeleteActivity(int id)
+        {
+            var activity = DB.Activity
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (activity == null)
+            {
+                return Content("删除不成功，没有该记录");
+            }
+            else
+            {
+                DB.Activity.Remove(activity);
+                DB.SaveChanges();
+                return Content("success");
+            }
+
+        }
+
+        public IActionResult Activity(int id)
+        {
+            var activity = DB.Activity
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if (activity == null)
+            {
+                return Content("没有该记录");
+            }
+            else
+            {
+                return View(activity);
+            }
+        }
+
+        #endregion
 
         #region 搜索
         [ValidateAntiForgeryToken]
@@ -73,12 +165,13 @@ namespace vote.Controller
             return View();
         }
         [HttpPost]
-        public IActionResult CreatePhotos(int AuthorId, string Title, int Priority, string Describe, IFormFile file)
+        public IActionResult CreatePhotos(int AuthorId, string Title, Category Category, int Priority, string Describe, IFormFile file)
         {
             var author = DB.Author.Where(x => x.Id == AuthorId).SingleOrDefault();
             Photos photo = new Photos();
             photo.AuthorId = AuthorId;
             photo.Title = Title;
+            photo.Category = Category;
             photo.Describe = Describe;
             photo.Priority = Priority;
             if (author == null)
@@ -110,7 +203,6 @@ namespace vote.Controller
             }
             else
             {
-
                 DB.Photos.Remove(photo);
                 DB.SaveChanges();
                 return Content("success");
@@ -134,7 +226,7 @@ namespace vote.Controller
             }
         }
         [HttpPost]
-        public IActionResult EditPhotos(Photos photo, string Author, int id)
+        public IActionResult EditPhotos(Photos photo, int id)
         {
             var photoEdit = DB.Photos.Include(x => x.Author)
                 .Where(x => x.Id == id)
@@ -143,11 +235,12 @@ namespace vote.Controller
             {
                 return Content("没有该记录");
             }
-            photoEdit.Author.AuthorName = Author;
+            //photoEdit.Author.AuthorName = Author;
             photoEdit.Describe = photo.Describe;
             photoEdit.Title = photo.Title;
+            photoEdit.Category = photo.Category;
             photoEdit.DateTime = photo.DateTime;
-            photoEdit.Path = photo.Path;
+            //photoEdit.Path = photo.Path;
             photoEdit.Priority = photo.Priority;
             DB.SaveChanges();
             return RedirectToAction("DetailsPhotos", "Admin");
@@ -162,6 +255,40 @@ namespace vote.Controller
             return View(photo);
         }
         #endregion
+
+        #region 摄影后台管理
+        public IActionResult DetailsPhotograph()
+        {
+            var photograph = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Category == Category.摄影)
+                .ToList();
+            return PagedView(photograph);
+        }
+        #endregion
+
+        #region 素描后台管理
+        public IActionResult DetailsSketch()
+        {
+            var sketch = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Category == Category.素描)
+                .ToList();
+            return PagedView(sketch);
+        }
+        #endregion
+
+        #region 书法后台管理
+        public IActionResult DetailsHandwriting()
+        {
+            var handwriting = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Category == Category.书法)
+                .ToList();
+            return PagedView(handwriting);
+        }
+        #endregion
+
 
         #region 作者
         [HttpGet]

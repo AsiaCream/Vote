@@ -8,7 +8,7 @@
             <form id="defaultForm" class="form-horizontal" asp-controller="Admin" asp-action="EditPhotos" method="post">
                 <input type="hidden" name="id" value="@Model.Id" />
                 <div class="form-group">
-                    <label class="col-lg-3 control-lable">照片标题</label>
+                    <label class="col-lg-3 control-lable">图片标题</label>
                     <div class="col-lg-5">
                         <input type="text" class="form-control" name="Title" id="Title" value="@Model.Title" />
                     </div>
@@ -16,7 +16,17 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">作者</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="Author" id="Author" value="@Model.Author.AuthorName" />
+                        <input type="text" class="form-control" name="Author" id="Author" value="@Model.Author.AuthorName" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">图片类别</label>
+                    <div class="col-lg-5">
+                        <select name="Category" id="Category" value="">@Model.Category
+                            <option>书法</option>
+                            <option>素描</option>
+                            <option>摄影</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -26,15 +36,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-3 control-lable">照片路径</label>
+                    <label class="col-lg-3 control-lable">图片路径</label>
                     <div class="col-lg-5">
-                        <input type="hidden" class="form-control" name="Path" id="Path" value="@Model.Path" disabled="disabled" />
+                        <input type="text" class="form-control" name="Path" id="Path" value="@Model.Path" disabled="disabled" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-3 control-lable">照片描述</label>
+                    <label class="col-lg-3 control-lable">图片描述</label>
                     <div class="col-lg-5">
-                        <textarea class="form-control" name="Discription" id="Discription" value="@Model.Describe"></textarea>
+                        <textarea class="form-control" name="Discription" id="Discription" >@Model.Describe</textarea>
                         
                     </div>
                 </div>

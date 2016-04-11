@@ -11,8 +11,8 @@ namespace vote.Controller
 {
     public class PageController : BaseController
     {
-        #region
-        //图片显示页面
+        #region 图片显示页面
+
         [HttpGet]
         public IActionResult Show(int id)
         {
@@ -32,6 +32,42 @@ namespace vote.Controller
                 return View(photo);
             }
             
+        }
+        #endregion
+        #region 书法
+        [HttpGet]
+        public IActionResult Handwriting()
+        {
+            var writing = DB.Photos
+                .Include(x => x.Author)
+                .Where(x=>x.Category == Models.Category.书法)
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return PagedView(writing);
+        }
+        #endregion
+
+        #region 摄影
+        public IActionResult Photograph()
+        {
+            var p = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Category == Models.Category.摄影)
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return PagedView(p);
+        }
+        #endregion
+
+        #region 素描
+        public IActionResult Sketch()
+        {
+            var sketch = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Category == Models.Category.素描)
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return PagedView(sketch);
         }
         #endregion
     }

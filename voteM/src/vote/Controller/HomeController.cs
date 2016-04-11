@@ -21,6 +21,15 @@ namespace vote.Controller
             return PagedView(ret,16);
         }
 
+        [HttpGet]
+        public IActionResult Active()
+        {
+            var active = DB.Activity
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+            return PagedView(active);
+        }
+
         [Authorize]
         [HttpGet]
         public IActionResult Manage()
