@@ -4,14 +4,13 @@
 <div class="container-fluid">
     <!--查到到作者列表-->
     <div class="row">
-        <div class="col-md-6">
-            <h3>查找到相关的作者有 @ViewBag.AuthorsCount 个</h3>
+        <div class="col-md-3">
+            <h4>查找到相关的作者有 @ViewBag.AuthorsCount 个</h4>
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>序号</th>
                         <th>作者</th>
-                        <th>备注</th>
                     </tr>
                 </thead>
                 @foreach(Author x in ViewBag.Authors)
@@ -20,15 +19,14 @@
                         <tr>
                             <td>@x.Id</td>
                             <td>@x.AuthorName</td>
-                            <td>@x.Note</td>
                         </tr>
                     </tbody>
                 }
             </table>
             <!--根据查找的结果-->
         </div>
-        <div class="col-md-6 col-xs-6">
-            <h3>查找到相关的作品 @ViewBag.PhotosCount 个</h3>
+        <div class="col-md-9">
+            <h4>查找到相关的作品 @ViewBag.PhotosCount 个</h4>
             <div class="container-fluid main">
                 @foreach (Photos x in ViewBag.Photos)
                 {

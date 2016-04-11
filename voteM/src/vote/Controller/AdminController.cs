@@ -174,6 +174,7 @@ namespace vote.Controller
             photo.Category = Category;
             photo.Describe = Describe;
             photo.Priority = Priority;
+            photo.VoteNumber = 0;
             if (author == null)
             {
                 return RedirectToAction("CreatePhotos", "Admin");
