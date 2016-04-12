@@ -20,6 +20,12 @@ namespace vote.Controller
                 .Include(x => x.Author)
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+            var top10 = DB.Photos
+                .Include(x => x.Author)
+                .OrderByDescending(x => x.VoteNumber)
+                .Take(10)
+                .ToList();
+            ViewBag.Top10 = top10;
             var webTitle = DB.WebTitle
                 .Where(x => x.Id == 1)
                 .SingleOrDefault();

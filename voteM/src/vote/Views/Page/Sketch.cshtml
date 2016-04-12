@@ -117,7 +117,7 @@
             <div class="col-md-2 col-xs-3">
                 书法TOP10
                 <table class="table table-hover table-condensed sort">
-                    @foreach (var x in Model)
+                    @foreach (Photos x in ViewBag.Top10)
                     {
                         <tr>
                             <th>@x.Id</th>

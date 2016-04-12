@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Entity;
+using vote.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -63,9 +64,16 @@ namespace vote.Controller
         {
             var writing = DB.Photos
                 .Include(x => x.Author)
-                .Where(x=>x.Category == Models.Category.书法)
+                .Where(x=>x.Category == Category.书法)
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+            var top10 = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Category == Category.书法)
+                .OrderByDescending(x => x.VoteNumber)
+                .Take(10)
+                .ToList();
+            ViewBag.Top10 = top10;
             var twoTitle = DB.WebTitle
                 .Where(x => x.Id == 3)
                 .SingleOrDefault();
@@ -79,9 +87,17 @@ namespace vote.Controller
         {
             var p = DB.Photos
                 .Include(x => x.Author)
-                .Where(x => x.Category == Models.Category.摄影)
+                .Where(x => x.Category == Category.摄影)
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+            var top10 = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Category == Category.摄影)
+                .OrderByDescending(x => x.VoteNumber)
+                .Take(10)
+                .ToList();
+            ViewBag.Top10 = top10;
+
             var threeTitle = DB.WebTitle
                 .Where(x => x.Id == 4)
                 .SingleOrDefault();
@@ -95,9 +111,16 @@ namespace vote.Controller
         {
             var sketch = DB.Photos
                 .Include(x => x.Author)
-                .Where(x => x.Category == Models.Category.素描)
+                .Where(x => x.Category == Category.素描)
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+            var top10 = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Category == Category.素描)
+                .OrderByDescending(x => x.VoteNumber)
+                .Take(10)
+                .ToList();
+            ViewBag.Top10 = top10;
             var fourTitle = DB.WebTitle
                 .Where(x => x.Id == 5)
                 .SingleOrDefault();
