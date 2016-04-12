@@ -20,6 +20,31 @@ namespace vote.Controller
                 .Include(x => x.Author)
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
+            var webTitle = DB.WebTitle
+                .Where(x => x.Id == 1)
+                .SingleOrDefault();
+            ViewBag.webTitle = webTitle;
+            
+            var smallTitle = DB.WebTitle
+                .Where(x => x.Id == 2)
+                .SingleOrDefault();
+            ViewBag.smallTitle = smallTitle;
+
+            var twoTitle = DB.WebTitle
+                .Where(x => x.Id == 3)
+                .SingleOrDefault();
+            ViewBag.twoTitle = twoTitle;
+
+            var threeTitle = DB.WebTitle
+               .Where(x => x.Id == 4)
+               .SingleOrDefault();
+            ViewBag.threeTitle = threeTitle;
+
+            var fourTitle = DB.WebTitle
+                .Where(x => x.Id == 5)
+                .SingleOrDefault();
+            ViewBag.fourTitle = fourTitle;
+
             return PagedView(ret,16);
         }
 

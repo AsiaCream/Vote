@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Photos>
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<style>
+    .sort tr:nth-child(2n) {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="active"><strong>@ViewBag.author.AuthorName</strong>作品展示</li>
+        </ol>
+    </div>
+    <div class="col-lg-9">
+        <div class="container-fluid main">
+            @foreach (var x in Model)
+            {
+                <div class="col-md-3 col-xs-3">
+                    <div class="thumbnail">
+                        <a asp-controller="Page" asp-action="show" asp-route-id="@x.Id"><img src="~/upload/@x.Path" alt="@x.Title"></a>
+                        <div class="caption voteBox">
+                            <h5><strong>@x.Id</strong>号</h5>
+                            <h5><strong><a asp-controller="Page" asp-action="AuthorDetail" asp-route-id="@x.Id">@x.Author.AuthorName</a></strong>作</h5>
+                            <h5>《<strong>@x.Title</strong>》</h5>
+                            <div class="vote">
+                                <a href="javascript:void(0)" onclick="vote(@x.Id)">投票</a>
+                                <p class="voteCount">@x.VoteNumber</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+        @Html.MakePager("pager-item", "", "pager")
+
+    </div>
+    <div class="col-lg-3 col-md-3 col-xs-3">
+        人气作品
+        <table class="table table-hover table-condensed sort">
+            
+        </table>
+    </div>
+</div>
+

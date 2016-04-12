@@ -4,7 +4,7 @@
 }
 <html>
 <head>
-    <title>市民投票</title>
+    <title>@ViewBag.webTitle.Title</title>
     <link rel="stylesheet" href="~/styles/bootstrap.css">
     <link rel="stylesheet" href="~/styles/vote.css" />
     <script src="~/scripts/jquery.min.js"></script>
@@ -70,9 +70,9 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <header class="row" id="header">
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                         <div class="title">
-                            <h1>投票主题名</h1>
+                            <h1>@ViewBag.webTitle.Title</h1>
                         </div>
                     </div>
                 </header>
@@ -83,13 +83,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" asp-action="Index" asp-controller="Home">Vote</a>
+                    <a class="navbar-brand" asp-action="Index" asp-controller="Home">@ViewBag.smallTitle.Title</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a asp-controller="Page" asp-action="Handwriting">书法 <span class="sr-only">(current)</span></a></li>
-                        <li><a asp-controller="Page" asp-action="Sketch">素描</a></li>
-                        <li><a asp-controller="Page" asp-action="Handwriting">摄影</a></li>
+                        <li class="active"><a asp-controller="Page" asp-action="Handwriting">@ViewBag.twoTitle.Title <span class="sr-only">(current)</span></a></li>
+                        <li><a asp-controller="Page" asp-action="Sketch">@ViewBag.threeTitle.Title</a></li>
+                        <li><a asp-controller="Page" asp-action="Handwriting">@ViewBag.fourTitle.Title</a></li>
                         <li class="dropdown">
                             <a asp-controller="Page" asp-active="Active" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">其它活动 <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -121,7 +121,7 @@
                     {
                         <tr>
                             <th>@x.Id</th>
-                            <th>@x.Author.AuthorName</th>
+                            <th><a asp-controller="Page" asp-action="AuthorDetail" asp-route-id="@x.Id">@x.Author.AuthorName</a></th>
                         </tr>
                         <tr style="display:block;">
                             <th>
@@ -145,7 +145,7 @@
                                 <a asp-controller="Page" asp-action="show" asp-route-id="@x.Id"><img src="~/upload/@x.Path" alt="@x.Title"></a>
                                 <div class="caption voteBox">
                                     <h5><strong>@x.Id</strong>号</h5>
-                                    <h5><strong>@x.Author.AuthorName</strong>作</h5>
+                                    <h5><strong><a asp-controller="Page" asp-action="AuthorDetail" asp-route-id="@x.Id">@x.Author.AuthorName</a></strong>作</h5>
                                     <h5>《<strong>@x.Title</strong>》</h5>
                                     <div class="vote">
                                         <a href="javascript:void(0)" onclick="vote(@x.Id)">投票</a>

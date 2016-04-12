@@ -14,6 +14,48 @@ namespace vote.Controller
     [Authorize]
     public class AdminController : BaseController
     {
+        #region WebTitle
+        public IActionResult DetailsWebTitle()
+        {
+            var WebTitle = DB.WebTitle.ToList();
+            return PagedView(WebTitle, 10);
+        } 
+
+        [HttpGet]
+        public IActionResult EditWebTitle(int id)
+        {
+            var WebTitle = DB.WebTitle
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if(WebTitle == null)
+            {
+                return Content("此项不存在");
+            }
+            else
+            {
+                return View(WebTitle);
+            }
+        }
+        [HttpPost]
+        public IActionResult EditWebTitle(WebTitle webTitle, int id)
+        {
+            var WebTitle = DB.WebTitle
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+            if(WebTitle == null)
+            {
+                return Content("此项不存在");
+            }
+            else
+            {
+                WebTitle.Title = webTitle.Title;
+                DB.SaveChanges();
+                return RedirectToAction("DetailsWebTitle", "Admin");
+            }
+        }
+
+        #endregion
+
         #region 活动
 
         public IActionResult DetailsActivity()
@@ -372,6 +414,24 @@ namespace vote.Controller
                 DB.SaveChanges();
                 return Content("success");
             }
+        }
+
+        public IActionResult AuthorPhotos(int id)
+        {
+            var photo = DB.Photos
+                .Include(x => x.Author)
+                .Where(x => x.Author.Id == id)
+                .ToList();
+            if(photo == null)
+            {
+                return Content("该作者不存在作品");
+            }
+            else
+            {
+                return PagedView(photo);
+            }
+
+
         }
         #endregion
     }

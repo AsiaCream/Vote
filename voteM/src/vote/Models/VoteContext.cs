@@ -13,6 +13,7 @@ namespace vote.Models
         public DbSet<Author> Author { get; set; }
         public DbSet<Activity> Activity { get; set; }
         public DbSet<ComputerIP> IPAddress { get; set; }
+        public DbSet<WebTitle> WebTitle { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,6 +32,10 @@ namespace vote.Models
                 e.HasIndex(x => x.Id);
             });
             builder.Entity<ComputerIP>(e =>
+            {
+                e.HasIndex(x => x.Id);
+            });
+            builder.Entity<WebTitle>(e =>
             {
                 e.HasIndex(x => x.Id);
             });
