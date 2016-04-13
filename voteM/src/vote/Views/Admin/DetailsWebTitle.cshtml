@@ -10,6 +10,7 @@
                     <tr>
                         <th>序号</th>
                         <th>标题</th>
+                        <th>类别</th>
                         <th>描述</th>
                     </tr>
                 </thead>
@@ -19,6 +20,7 @@
                         <tr id="table-tr-@x.Id">
                             <th>@x.Id</th>
                             <th>@x.Title</th>
+                            <th>@x.type</th>
                             <th>@x.location</th>
                             @if (User.IsSignedIn())
                             {

@@ -4,7 +4,7 @@
 }
 <html>
 <head>
-    <title>素描——市民投票</title>
+    <title>@ViewBag.bigTitle4.Title-@ViewBag.bigTitle1.Title</title>
     <link rel="stylesheet" href="~/styles/bootstrap.css">
     <link rel="stylesheet" href="~/styles/vote.css" />
     <script src="~/scripts/jquery.min.js"></script>
@@ -17,7 +17,9 @@
         .sort tr:nth-child(2n) {
             display: none;
         }
-
+        .sort tr:nth-child(2) {
+            display: block;
+        }
         div.thumbnail:hover {
             box-shadow: 0 0 8px #30E4E8;
         }
@@ -72,7 +74,7 @@
                 <header class="row" id="header">
                     <div class="col-md-4">
                         <div class="title">
-                            <h1>素描类投票区</h1>
+                            <h1>@ViewBag.bigTitle4.Title</h1>
                         </div>
                     </div>
                 </header>
@@ -83,13 +85,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" asp-action="Index" asp-controller="Home">Vote</a>
+                    <a class="navbar-brand" asp-action="Index" asp-controller="Home">@ViewBag.smallTitle1.Title</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a asp-controller="Page" asp-action="Handwriting">书法 <span class="sr-only">(current)</span></a></li>
-                        <li class="active"><a asp-controller="Page" asp-action="Sketch">素描</a></li>
-                        <li><a asp-controller="Page" asp-action="Photograph">摄影</a></li>
+                        <li><a asp-controller="Page" asp-action="Handwriting">@ViewBag.smallTitle2.Title <span class="sr-only">(current)</span></a></li>
+                        <li><a asp-controller="Page" asp-action="Photograph">@ViewBag.smallTitle3.Title</a></li>
+                        <li class="active"><a asp-controller="Page" asp-action="Sketch">@ViewBag.smallTitle4.Title</a></li>
                         <li class="dropdown">
                             <a asp-controller="Page" asp-active="Active" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">其它活动 <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -99,7 +101,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <form asp-action="Searching" asp-controller="Admin" id="frmSearch" method="post" class="navbar-form navbar-left" role="search">
+                    <form asp-action="Searching" asp-controller="Page" id="frmSearch" method="post" class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" name="key" placeholder="搜索作品/作者">
                         </div>
@@ -115,15 +117,15 @@
     <div class="container">
         <div class="col-md-12">
             <div class="col-md-2 col-xs-3">
-                书法TOP10
+                @ViewBag.smallTitle4.Title-TOP10
                 <table class="table table-hover table-condensed sort">
-                    @foreach (var x in Model)
+                    @foreach (var x in ViewBag.top)
                     {
                         <tr>
                             <th>@x.Id</th>
-                            <th>@x.Author.AuthorName</th>
+                            <th><a asp-controller="Page" asp-action="AuthorDetail" asp-route-id="@x.AuthorId">@x.Author.AuthorName</a></th>
                         </tr>
-                        <tr style="display:block;">
+                        <tr>
                             <th>
                                 <div>
                                     <img src="~/upload/@x.Path" width="100" height="100" />
@@ -145,7 +147,7 @@
                                 <a asp-controller="Page" asp-action="show" asp-route-id="@x.Id"><img src="~/upload/@x.Path" alt="@x.Title"></a>
                                 <div class="caption voteBox">
                                     <h5><strong>@x.Id</strong>号</h5>
-                                    <h5><strong>@x.Author.AuthorName</strong>作</h5>
+                                    <h5><strong><a asp-controller="Page" asp-action="AuthorDetail" asp-route-id="@x.AuthorId">@x.Author.AuthorName</a></strong>作</h5>
                                     <h5>《<strong>@x.Title</strong>》</h5>
                                     <div class="vote">
                                         <a href="/">投票</a>

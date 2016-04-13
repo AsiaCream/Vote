@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>市民投票</title>
+    <title>@ViewBag.bigTitle1.Title</title>
     <link rel="stylesheet" href="~/styles/bootstrap.css">
     <link rel="stylesheet" href="~/styles/bootstrap-lightbox.min.css" />
     <link rel="stylesheet" href="~/styles/vote.css" />
@@ -16,9 +16,9 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <header class="row" id="header">
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                         <div class="title">
-                            <h1>投票主题名</h1>
+                            <h1>@ViewBag.bigTitle1.Title</h1>
                         </div>
                     </div>
                 </header>
@@ -29,13 +29,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" asp-action="Index" asp-controller="Home">Vote</a>
+                    <a class="navbar-brand" asp-action="Index" asp-controller="Home">@ViewBag.smallTitle1.Title</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">书法 <span class="sr-only">(current)</span></a></li>
-                        <li><a asp-controller="Page" asp-action="Sketch">素描</a></li>
-                        <li><a asp-controller="Page" asp-action="Handwriting">摄影</a></li>
+                        <li class="active"><a asp-controller="Page" asp-action="Handwriting">@ViewBag.smallTitle2.Title <span class="sr-only">(current)</span></a></li>
+                        <li><a asp-controller="Page" asp-action="Photograph">@ViewBag.smallTitle3.Title</a></li>
+                        <li><a asp-controller="Page" asp-action="Sketch">@ViewBag.smallTitle4.Title</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">其它活动 <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -45,11 +45,11 @@
                             </ul>
                         </li>
                     </ul>
-                    <form asp-action="Searching" asp-controller="Admin" id="frmSearch" method="post" class="navbar-form navbar-left" role="search">
+                    <form asp-action="Searching" asp-controller="Page" id="frmSearch" method="post" class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="key" placeholder="搜索作品/作者/题目">
+                            <input type="text" class="form-control" name="key" placeholder="搜索作品/作者">
                         </div>
-                        <input type="submit" class="btn btn-success" value="搜索"/>
+                        <input type="submit" class="btn btn-success" value="搜索" />
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">返回市民学习网</a></li>

@@ -18,7 +18,7 @@
                     <tbody>
                         <tr>
                             <td>@x.Id</td>
-                            <td>@x.AuthorName</td>
+                            <td><a asp-controller="Page" asp-action="AuthorDetail" asp-route-id="@x.Id">@x.AuthorName</a></td>
                         </tr>
                     </tbody>
                 }
@@ -35,7 +35,7 @@
                             <a asp-controller="Page" asp-action="show" asp-route-id="@x.Id"><img src="~/upload/@x.Path" alt="@x.Title"></a>
                             <div class="caption voteBox">
                                 <h5><strong>@x.Id</strong>号</h5>
-                                <h5><strong>@x.Author.AuthorName</strong>作</h5>
+                                <h5><strong><a asp-controller="Page" asp-action="AuthorDetail" asp-route-id="@x.AuthorId">@x.Author.AuthorName</a></strong>作</h5>
                                 <h5>《<strong>@x.Title</strong>》</h5>
                                 <div class="vote">
                                     <a href="/">投票</a>

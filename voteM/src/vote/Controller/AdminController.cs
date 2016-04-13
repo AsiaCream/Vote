@@ -150,43 +150,7 @@ namespace vote.Controller
 
         #endregion
 
-        #region 搜索
-        [ValidateAntiForgeryToken]
-        public IActionResult Searching(string key)
-        {
-            //找作者
-            var Authors = DB.Author
-                .Where(x => x.Id.ToString() == key || x.AuthorName.Contains(key))
-                .ToList();
-            //相关作者数量
-            var AuthorsCount = DB.Author
-                .Where(x => x.Id.ToString() == key || x.AuthorName.Contains(key)).Count();
-            //找图片
-            var Photos = DB.Photos
-                .Include(x => x.Author)
-                .Where(x => x.Id.ToString() == key || x.Title.Contains(key))
-                .ToList();
-            //相关图片数量
-            var PhotosCount = DB.Photos
-                .Include(x => x.Author)
-                .Where(x => x.Id.ToString() == key || x.Title.Contains(key))
-                .Count();
-
-            ViewBag.Authors = Authors;
-            ViewBag.AuthorsCount = AuthorsCount;
-            ViewBag.Photos = Photos;
-            ViewBag.PhotosCount = PhotosCount;
-
-            return View();
-        }
-        [HttpGet]
-        public IActionResult SearchResult()
-        {
-            return View();
-        }
-
-
-        #endregion
+        
 
         #region 图片
 
