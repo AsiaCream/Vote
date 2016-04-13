@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,20 @@ namespace vote.Models
         {
             var db = service.GetRequiredService<VoteContext>();
             var userManager = service.GetRequiredService<UserManager<User>>();
+            var roleManager = service.GetRequiredService<RoleManager<IdentityRole>>();
             if(db.Database != null && db.Database.EnsureCreated())
             {
-                await userManager.CreateAsync(new User { UserName = "admin" }, "Cream2015!@#");
+                await roleManager.CreateAsync(new IdentityRole { Name = "超级管理员" });
+                await roleManager.CreateAsync(new IdentityRole { Name = "系统管理员" });
+
+                var superAdmin = new User { UserName = "Admin", Email = "627148026@qq.com" };
+                await userManager.CreateAsync(superAdmin, "Cream2015!@#");
+                await userManager.AddToRoleAsync(superAdmin, "超级管理员");
+
+                var admin = new User { UserName = "Cream2015", Email = "343224963@qq.com" };
+                await userManager.CreateAsync(admin, "Cream2015!@#");
+                await userManager.AddToRoleAsync(admin, "系统管理员");
+
 
                 db.WebTitle.Add(new WebTitle
                 {

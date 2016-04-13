@@ -243,8 +243,8 @@ namespace vote.Controller
  
         }
         #endregion
+
         #region 搜索
-        [ValidateAntiForgeryToken]
         public IActionResult Searching(string key)
         {
             //找作者

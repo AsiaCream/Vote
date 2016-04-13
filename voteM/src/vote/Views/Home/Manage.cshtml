@@ -1,1 +1,32 @@
-﻿<h2>这是后台页面——————————首页</h2>
+﻿@model IEnumerable<Photos>
+<div class="col-md-6">
+    <h3>当前情况</h3>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>当前作者人数：</th>
+                <td>@ViewBag.AuthorCount</td>
+            </tr>
+            <tr>
+                <th>当前作品总数：</th>
+                <td>@ViewBag.PhotosCount</td>
+            </tr>
+            <tr>
+                <th>当前素描作品数：</th>
+                <td>@ViewBag.AuthorCount</td>
+            </tr>
+            <tr>
+                <th>当前书法作品数：</th>
+                <td>@ViewBag.AuthorCount</td>
+            </tr>
+            <tr>
+                <th>当前摄影作品数：</th>
+                <td>@ViewBag.AuthorCount</td>
+            </tr>
+            <tr>
+                <th>当前活动作品数：</th>
+                <td>@ViewBag.AuthorCount</td>
+            </tr>
+        </thead>
+    </table>
+</div>

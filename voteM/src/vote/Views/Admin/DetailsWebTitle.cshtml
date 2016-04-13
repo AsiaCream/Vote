@@ -1,27 +1,29 @@
 ﻿@model IEnumerable<WebTitle>
-<div class="container-fluid">
+<style>
+
+</style>
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <div>
-                <h3>前台标题管理</h3>
-            </div>
-            <table class="table table-hover">
+        <div class="col-md-12 col-xs-12">
+            <h3>前台标题管理</h3>
+            <div style="margin-top:-15px;"></div>
+            <table class="table">
                 <thead>
                     <tr>
                         <th>序号</th>
                         <th>标题</th>
                         <th>类别</th>
                         <th>描述</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var x in Model)
                     {
                         <tr id="table-tr-@x.Id">
-                            <th>@x.Id</th>
-                            <th>@x.Title</th>
-                            <th>@x.type</th>
-                            <th>@x.location</th>
+                            <td>@x.Id</td>
+                            <td>@x.Title</td>
+                            <td>@x.type</td>
+                            <td>@x.location</td>
                             @if (User.IsSignedIn())
                             {
                                 <td>
@@ -34,4 +36,3 @@
             </table>
         </div>
     </div>
-</div>

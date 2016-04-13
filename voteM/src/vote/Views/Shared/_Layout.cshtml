@@ -22,15 +22,6 @@
                     </span>
                 </a>
             </div>
-            <div>
-                <form asp-action="Searching" asp-controller="Admin" class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="key" placeholder="搜索作品/作者/题目">
-                    </div>
-                    <input type="submit" class="btn btn-success" value="搜索">
-                </form>
-                
-            </div>
             <span style="float:right; position:absolute; top:8px; right:8px; display:inline-block;">
                 <button style="display:none; " type="button" class="btn" id="pull"><i class="glyphicon glyphicon-th-list"></i>  </button>
             </span>
@@ -50,14 +41,24 @@
                         </li>
                         <li>
                             <a asp-action="DetailsWebTitle" asp-controller="Admin">
-                                <i class="glyphicon glyphicon-leaf"></i>
-                                前台标题管理
+                                <i class="glyphicon glyphicon-comment"></i>
+                                标题管理
                             </a>
 
                         </li>
                         <li>
+                            <a href="#set1" class="collapsed" data-toggle="collapse">
+                                <i class="glyphicon glyphicon-user"></i>
+                                作者管理
+                            </a>
+                            <ul id="set1" class="collapse secondmenu">
+                                <li><a asp-action="CreateAuthor" asp-controller="Admin">作者添加</a></li>
+                                <li><a asp-action="DetailsAuthor" asp-controller="Admin">作者管理</a></li>
+                            </ul>
+                        </li>
+                        <li>
                             <a href="#set" class="collapsed" data-toggle="collapse">
-                                <i class="glyphicon glyphicon-leaf"></i>
+                                <i class="glyphicon glyphicon-picture"></i>
                                 管理投稿
                             </a>
                             <ul id="set" class="collapse secondmenu">
@@ -68,18 +69,8 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#set1" class="collapsed" data-toggle="collapse">
-                                <i class="glyphicon glyphicon-leaf"></i>
-                                作者
-                            </a>
-                            <ul id="set1" class="collapse secondmenu">
-                                <li><a asp-action="CreateAuthor" asp-controller="Admin">作者添加</a></li>
-                                <li><a asp-action="DetailsAuthor" asp-controller="Admin">作者管理</a></li>
-                            </ul>
-                        </li>
-                        <li>
                             <a href="#set2" class="collapsed" data-toggle="collapse">
-                                <i class="glyphicon glyphicon-leaf"></i>
+                                <i class="glyphicon glyphicon-tower"></i>
                                 活动管理
                             </a>
                             <ul id="set2" class="collapse secondmenu">
@@ -87,13 +78,27 @@
                                 <li><a asp-action="DetailsActivity" asp-controller="Admin">活动管理</a></li>
                             </ul>
                         </li>
+                        @if (User.IsInRole("超级管理员"))
+                        {
+                            <li>
+                                <a href="#set3" class="collapsed" data-toggle="collapse">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    管理员列表
+                                </a>
+                                <ul id="set3" class="collapse secondmenu">
+                                    <li><a asp-action="CreateAdmin" asp-controller="Account">管理员添加</a></li>
+                                    <li><a asp-action="DetailsAdmin" asp-controller="Account">查看管理员</a></li>
+                                </ul>
+                            </li>
+                        }
                         <li>
-                            <a asp-action="Login" asp-controller="Account">
+                            <a href="javascript:$('#Logout').submit()">
                                 <i class="glyphicon glyphicon-off"></i>
                                 退出后台
                             </a>
                         </li>
                     </ul>
+                    <form asp-action="Logout" asp-controller="Account" id="Logout"></form>
                 </aside>
             </div>
             <div class="col-md-10">

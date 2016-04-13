@@ -62,6 +62,14 @@ namespace vote.Controller
         [HttpGet]
         public IActionResult Manage()
         {
+            var photosCount = DB.Photos
+                .OrderBy(x => x.DateTime)
+                .Count();
+            var authorCount = DB.Author
+                .OrderBy(x => x.Id)
+                .Count();
+            ViewBag.PhotosCount = photosCount;
+            ViewBag.AuthorCount = authorCount;
             return View();
         }
         [HttpGet]

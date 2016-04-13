@@ -11,9 +11,10 @@ using Microsoft.Data.Entity;
 
 namespace vote.Controller
 {
-    [Authorize]
+    
     public class AdminController : BaseController
     {
+
         #region WebTitle
         public IActionResult DetailsWebTitle()
         {
