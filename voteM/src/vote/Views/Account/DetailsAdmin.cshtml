@@ -1,1 +1,56 @@
-﻿<h1>管理员管理</h1>
+﻿@model IEnumerable<User>
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <h3>系统管理员管理</h3>
+        <table class="table" style="margin-top:-15px;">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>管理员</th>
+                    <th>联系电话</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr id="table-tr-@x.Id">
+                        <td>@x.Id</td>
+                        <td>@x.UserName</td>
+                        <td>@x.Phone</td>
+                        @if (User.IsSignedIn())
+                        {
+                            <td>
+                                <a href="javascript:remove(@x.Id)">删除</a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!-- Html.MakePager("pager-item", "active", "pager")-->
+    </div>
+</div>
+@if (User.IsSignedIn())
+{
+    <script src="~/scripts/jquery.min.js"></script>
+    <script type="text/javascript">
+        function remove(id) {
+            var jug = confirm("确认删除？");
+            if (jug == true) {
+                    var url = "/Admin/DeleteAuthor";
+                    var params = { "id": id };
+                    $.post(url, params, function (data) {
+                        if (data == "success") {
+                            $("#table-tr-"+id).remove();
+                            alert("删除成功");
+                        }
+                        else {
+                            alert("删除失败");
+                        }
+
+                    });
+            }
+        }
+    </script>
+}

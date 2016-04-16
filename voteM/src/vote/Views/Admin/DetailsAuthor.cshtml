@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<Author>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-xs-12">
             <h3>作者管理</h3>
-            <table class="table table-hover">
+            <table class="table" style="margin-top:-15px;">
                 <thead>
                     <tr>
                         <th>序号</th>
@@ -17,11 +17,11 @@
                     @foreach (var x in Model)
                     {
                         <tr id="table-tr-@x.Id">
-                            <th>@x.Id</th>
-                            <th>@x.AuthorName</th>
-                            <th>@x.PhoneNumber</th>
-                            <th>@x.Email</th>
-                            <th>@x.Note</th>
+                            <td>@x.Id</td>
+                            <td>@x.AuthorName</td>
+                            <td>@x.PhoneNumber</td>
+                            <td>@x.Email</td>
+                            <td>@x.Note</td>
                             @if (User.IsSignedIn())
                             {
                                 <td>

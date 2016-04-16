@@ -8,5 +8,7 @@ namespace vote.Models
 {
     public class User:IdentityUser
     {
+        public DateTime RegisterTime { get; set; }
+        public string Phone { get; set; }
     }
 }

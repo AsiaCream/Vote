@@ -45,12 +45,24 @@ namespace vote.Controller
         {
             return View();
         }
-        //[Authorize(Roles ="超级管理员")]
-        //[HttpPost]
-        //public async Task<IActionResult> CreateAdmin(User user)
-        //{
-        //    return View();
-        //}
+        [Authorize(Roles = "超级管理员")]
+        [HttpPost]
+        public async Task<IActionResult> CreateAdmin(string username,string password,DateTime registerTime,string phone)
+        {
+            var admin = new User { UserName = username, RegisterTime = registerTime, Phone = phone };
+            await UserManager.CreateAsync(admin, password);
+            await UserManager.AddToRoleAsync(admin, "系统管理员");
+            DB.SaveChanges();
+            return Content("success");
+        }
+        [HttpGet]
+        public async Task<IActionResult> DetailsAdmin()
+        {
+            var admins = (await UserManager.GetUsersInRoleAsync("系统管理员"))
+                .OrderBy(x => x.RegisterTime)
+                .ToList();
+            return View(admins);
 
+        }
     }
 }

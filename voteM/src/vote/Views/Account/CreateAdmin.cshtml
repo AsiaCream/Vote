@@ -1,1 +1,139 @@
-﻿<h1>创建管理员页面</h1>
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="page-header">
+                <h3>创建系统管理员</h3>
+            </div>
+            <form id="defaultForm" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">用户名</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="username" id="username" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">密码</label>
+                    <div class="col-lg-5">
+                        <input type="password" class="form-control" name="password" id="password" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">再次输入密码</label>
+                    <div class="col-lg-5">
+                        <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-lable">电话号码</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" name="Phone" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <button class="btn btn-primary" id="submit" value="">提交</button>
+                        <a asp-controller="Admin" asp-action="DetailsAuthor">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#defaultForm").bootstrapValidator({
+            message: '这个值没有被验证',
+            feedbackIcons: {
+                valid:'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                username: {
+                    message: '用户名还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message:'用户名不能为空'
+                        },
+                        regexp:{
+                            regexp: /^[0-9a-zA-Z\u4e00-\u9fa5][a-zA-Z0-9_\u4E00-\u9FA5]{0,9}$/,
+                            message: '用户名长度在1到10位之间,可以包括数字，字母，中文,下划线。不能包括特殊字符。'
+                        }
+                    }
+
+                },
+                Phone:{
+                    message: '电话号码还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '电话号码不能为空'
+                        },
+                        regexp:{
+                            regexp: /^((13[0-9])|(15[^4,\\D])|(18[0,2,5-9]))\d{8}$/,
+                            message:'11位数字，格式如：13842174329'
+                        }
+                    }
+
+                },
+                password: {
+                    message: '密码还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 16,
+                            message: '密码长度在6到16之间'
+                        },
+                        regexp: {
+                            regexp: /^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$/,
+                            message: '密码必须包括至少一个数字，大写字母，小写字母，特殊字符'
+                        },
+                        different: {
+                            field: 'username',
+                            message: '密码不能和用户名相同'
+                        }
+                    }
+                },
+                confirmpassword: {
+                    message: '二次密码还没有验证',
+                    validators: {
+                        notEmpty: {
+                            message: '二次密码不能为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 16,
+                            message: '二次密码长度在6到16之间'
+                        },
+                        regexp: {
+                            regexp: /^(?![0-9a-z]+$)(?![0-9A-Z]+$)(?![0-9\W]+$)(?![a-z\W]+$)(?![a-zA-Z]+$)(?![A-Z\W]+$)[a-zA-Z0-9\W_]+$/,
+                            message: '二次密码必须包括至少一个数字，大写字母，小写字母，特殊字符'
+                        },
+                        identical: {
+                            field: 'password',
+                            message: '两次密码不同请重新输入'
+                        }
+                    }
+                }
+            }
+        });
+        $("#submit").click(function () {
+            var url = "/Account/CreateAdmin";
+            var params = { "username": username, "password": password, "Phone": Phone };
+            $.post(url, params, function (data) {
+                if (data == "success") {
+                    alert("添加系统管理员成功");
+
+                } else {
+                    alert("添加失败");
+
+                }
+
+            })
+
+        });
+    });
+</script>
