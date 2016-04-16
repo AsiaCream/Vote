@@ -26,13 +26,13 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-lable">电话号码</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="Phone" />
+                        <input type="text" class="form-control" name="Phone" id="Phone" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-lg-9 col-lg-offset-3">
-                        <button class="btn btn-primary" id="submit" value="">提交</button>
+                        <button class="btn btn-primary" id="submit">提交</button>
                         <a asp-controller="Admin" asp-action="DetailsAuthor">取消</a>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () {
+    $(function () {
         $("#defaultForm").bootstrapValidator({
             message: '这个值没有被验证',
             feedbackIcons: {
@@ -120,20 +120,27 @@
                 }
             }
         });
-        $("#submit").click(function () {
-            var url = "/Account/CreateAdmin";
-            var params = { "username": username, "password": password, "Phone": Phone };
-            $.post(url, params, function (data) {
-                if (data == "success") {
-                    alert("添加系统管理员成功");
+    });
+    
 
-                } else {
-                    alert("添加失败");
 
-                }
 
-            })
+    $("#submit").click(function () {
+        var username = $("#username").val()
+        var password = $("#password").val();
+        var phone = $("#phone").val();
+        var url = "/Account/CreateAdmin";
+        var params = { "username": username, "password": password ,"Phone":phone };
+        alert(password);
+        $.post(url, params, function (data) {
+            if (data == "success") {
+                alert("添加系统管理员成功");
+            } else {
+                alert("添加失败");
+
+            }
 
         });
+
     });
 </script>

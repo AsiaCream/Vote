@@ -47,9 +47,9 @@ namespace vote.Controller
         }
         [Authorize(Roles = "超级管理员")]
         [HttpPost]
-        public async Task<IActionResult> CreateAdmin(string username,string password,DateTime registerTime,string phone)
+        public async Task<IActionResult> CreateAdmin(string username,string password,string phone)
         {
-            var admin = new User { UserName = username, RegisterTime = registerTime, Phone = phone };
+            var admin = new User { UserName = username, RegisterTime = DateTime.Now, Phone = phone };
             await UserManager.CreateAsync(admin, password);
             await UserManager.AddToRoleAsync(admin, "系统管理员");
             DB.SaveChanges();
