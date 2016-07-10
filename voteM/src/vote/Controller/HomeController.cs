@@ -20,7 +20,11 @@ namespace vote.Controller
                 .Include(x => x.Author)
                 .OrderByDescending(x => x.DateTime)
                 .ToList();
-
+            ViewBag.Top10=DB.Photos
+            .Include(x=>x.Author)
+            .OrderByDescending(x=>x.VoteNumber)
+            .Take(5)
+            .ToList();
             var bigTitle1 = DB.WebTitle
                 .Where(x => x.Id == 1)
                 .SingleOrDefault();
@@ -46,7 +50,7 @@ namespace vote.Controller
                 .SingleOrDefault();
             ViewBag.smallTitle4 = smallTitle4;
 
-            return PagedView(ret,16);
+            return PagedView(ret,8);
         }
 
         [HttpGet]

@@ -66,6 +66,7 @@ namespace vote.Controller
                 //推荐作品
                 var Recommended = DB.Photos.Include(x => x.Author) 
                     .OrderByDescending(x => x.Priority)
+                    .Take(10)
                     .ToList();
                 ViewBag.Recommended = Recommended;
 

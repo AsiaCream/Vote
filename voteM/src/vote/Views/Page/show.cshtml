@@ -23,7 +23,7 @@
                 <h3>@Model.Title</h3>
                 <p>
                     <span>作者:</span><a href="#"><strong class="text-info">@Model.Author.AuthorName</strong></a>
-                    <span>支持:</span><strong class="text-danger">123322</strong>
+                    <span>支持:</span><strong class="text-danger">@Model.VoteNumber</strong>
                 </p>
                 <hr />
             </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="col-lg-7 col-lg-offset-5">
                 <a class="btn btn-large btn-primary btn-hover" href="#"><i class="glyphicon glyphicon-thumbs-up" style="font-size:40px;"></i> </a>
-                <span><strong>1234</strong>人已投票</span>
+                <span><strong>@Model.VoteNumber</strong>人已投票</span>
             </div>
         </div>
 
@@ -71,7 +71,7 @@
                                 <div>
                                     <a asp-action="show" asp-controller="Page" asp-route-id="@x.Id"><img src="~/upload/@x.Path" width="100" height="100" /></a>
                                     <p style="text-align:center;">《<em>@x.Title</em>》</p>
-                                    <p style="text-align:center;"><em>65535</em>票</p>
+                                    <p style="text-align:center;"><em>@x.VoteNumber</em>票</p>
                                 </div>
                             </th>
                         </tr>

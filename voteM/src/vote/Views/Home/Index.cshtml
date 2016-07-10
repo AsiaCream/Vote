@@ -33,6 +33,7 @@
         h5 {
             color: #a5a5a5;
             font-size: 14px;
+            padding-bottom:8px;
         }
 
         .col-md-2, .col-md-10, .col-md-12 {
@@ -118,12 +119,12 @@
     <div class="container">
         <div class="col-md-12">
             <div class="col-md-2 col-xs-3">
-                TOP10
+                 TOP5
                 <table class="table table-hover table-condensed sort">
-                    @foreach (var x in Model)
+                    @foreach (var x in ViewBag.Top10)
                     {
                         <tr>
-                            <th>@x.Id</th>
+                            <th>@x.Id 号</th>
                             <th><a asp-controller="Page" asp-action="AuthorDetail" asp-route-id="@x.AuthorId">@x.Author.AuthorName</a></th>
                         </tr>
                         <tr>
@@ -145,14 +146,14 @@
                     {
                         <div class="col-md-3 col-xs-3">
                             <div class="thumbnail">
-                                <a asp-controller="Page" asp-action="show" asp-route-id="@x.Id"><img src="~/upload/@x.Path" alt="@x.Title"></a>
+                                <a asp-controller="Page" asp-action="show" asp-route-id="@x.Id"><img src="~/upload/@x.Path" alt="@x.Title" width="550" height="330"></a>
                                 <div class="caption voteBox">
-                                    <h5><strong>@x.Id</strong>号</h5>
+                                    <h5><strong>@x.Id</strong>号 <span class="voteCount pull-right">@x.VoteNumber</span></h5>
                                     <h5><strong><a asp-controller="Page" asp-action="AuthorDetail" asp-route-id="@x.AuthorId">@x.Author.AuthorName</a></strong>作</h5>
                                     <h5>《<strong>@x.Title</strong>》</h5>
                                     <div class="vote">
                                         <a href="javascript:void(0)" onclick="vote(@x.Id)">投票</a>
-                                        <p class="voteCount">@x.VoteNumber</p>
+                                        
                                     </div>
                                 </div>
                             </div>
